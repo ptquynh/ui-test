@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>ui-test</artifactId>
+    <groupId>com.tekexperts.selenium</groupId>
+    <version>1.0.x-SNAPSHOT</version>
+  </parent>
+  <groupId>com.tekexperts.selenium</groupId>
+  <artifactId>ui-testsuite</artifactId>
+  <version>1.0.x-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <dependencies>
+		<dependency>
+			 <groupId>com.tekexperts.selenium</groupId>
+			 <artifactId>ui-common</artifactId>
+             <version>1.0.x-SNAPSHOT</version>
+		</dependency>
+  </dependencies>
+  <profiles>
+		<!-- Testing failed-->
+		<profile>
+			<id>testng-failed</id>
+			<properties>
+				<testSuite>testng-failed.xml</testSuite>
+			</properties>
+		</profile>
+	</profiles>
+
+  <build>
+		<plugins>
+		    <!-- Setting for java 8 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.2</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+					
+			<!-- Execute integration tests -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven-surefire-plugin.version}</version>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+				<executions>
+					<execution>
+						<id>d-integration-test</id>
+						<phase>integration-test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<configuration>
+							<skip>${maven.test.skip}</skip>
+							<systemPropertyVariables>
+								<webdriver.ie.driver>${project.basedir}/Drivers/IEDriverServer</webdriver.ie.driver>
+								<webdriver.chrome.driver>${project.basedir}/Drivers/chromedriver.exe</webdriver.chrome.driver>
+							</systemPropertyVariables>
+							<suiteXmlFiles>
+								<suiteXmlFile>${project.build.OutputDirectory}/suites/${testSuite}</suiteXmlFile>
+							</suiteXmlFiles>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

@@ -5,9 +5,7 @@ UI Test set for Pipeline project
 Structure introduction
 
 This set is composed of 2 modules: ui-testsuite and ui-common
-
 ui-common includes all common functions that are used in testcases. Common functions are divided in .java files according to products, features and modules of Platform.
-
 ui-testsuite includes all testcases which are executed to test our products. It is divided in packages according to products, features, and modules of Platform. Each package contains one or more .java files which are testsuites. Each testsuite that includes one or more testcases is respective to one feature of Platform.
 
 How to build the project

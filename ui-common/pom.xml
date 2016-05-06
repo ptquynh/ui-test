@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>ui-test</artifactId>
+    <groupId>com.tekexperts.selenium</groupId>
+    <version>1.0.x-SNAPSHOT</version>
+  </parent>
+  <groupId>com.tekexperts.selenium</groupId>
+  <artifactId>ui-common</artifactId>
+  <version>1.0.x-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  
+  <properties>
+		<source.folder>${project.basedir}/src/main/java</source.folder>
+  </properties>
+
+  <build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>2.9</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>c-generate</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<additionalparam>-Xdoclint:none</additionalparam>
+							<skip>${javadoc.skip}</skip>
+							<sourcepath>${source.folder}</sourcepath>
+							<doctitle>tek-experts - Java Selenium Test Framework
+								Documentation</doctitle>
+							<reportOutputDirectory>${project.build.directory}</reportOutputDirectory>
+							<destDir>${project.basedir}/target/doc</destDir>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
