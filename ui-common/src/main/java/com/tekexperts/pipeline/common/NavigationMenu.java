@@ -19,8 +19,10 @@ public class NavigationMenu extends PipelineBase {
 	//Pipeline Management-->Left Menu
 	public By ELEMENT_LEFT_MENU_DAHSBOARD = By.xpath(".//*[@href='/ControlPanel/Dashboard']");
 	public By ELEMENT_LEFT_MENU_OPERATION = By.xpath(".//*[@href='/ControlPanel/Operation']");
-	public By ELEMENT_LEFT_MENU_PIPELINE = By.xpath(".//*[@href='/Pipeline']");
+	public By ELEMENT_LEFT_MENU_PIPELINE = By.xpath(".//*[@id='left-side']//*[@href='/Pipeline']");
 	public By ELEMENT_LEFT_MENU_HISTORICAL_DATA = By.xpath(".//*[@href='/HistoricalContract']");
+	//Left menu when collapsed
+	public By ELEMENT_LEFT_MENU_COLLAPSE_STATUS=By.xpath(".//*[@id='left-side'][contains(@class,'collapse-left')]");
 	
 	//************************NAVIGATION BAR************************************\\	
 	//Logo
@@ -51,7 +53,6 @@ public class NavigationMenu extends PipelineBase {
 				mouseOverAndClick(ELEMENT_LEFT_MENU_ORGANIZATION);
 				break;
 			}
-			click(ELEMENT_LEFT_MENU_ORGANIZATION);
 			if (waitForAndGetElement(ELEMENT_LEFT_MENU_ORGANIZATION, 5000, 0) != null){
 				info("Element " + ELEMENT_LEFT_MENU_ORGANIZATION + "... is displayed");
 				break;
@@ -73,7 +74,6 @@ public class NavigationMenu extends PipelineBase {
 				mouseOverAndClick(ELEMENT_LEFT_MENU_DATA_IMPORT);
 				break;
 			}
-			click(ELEMENT_LEFT_MENU_DATA_IMPORT);
 			if (waitForAndGetElement(ELEMENT_LEFT_MENU_DATA_IMPORT, 5000, 0) != null){
 				info("Element " + ELEMENT_LEFT_MENU_DATA_IMPORT + "... is displayed");
 				break;
@@ -95,7 +95,6 @@ public class NavigationMenu extends PipelineBase {
 				mouseOverAndClick(ELEMENT_LEFT_MENU_PIPELINE_CONFIGURATION);
 				break;
 			}
-			click(ELEMENT_LEFT_MENU_PIPELINE_CONFIGURATION);
 			if (waitForAndGetElement(ELEMENT_LEFT_MENU_PIPELINE_CONFIGURATION, 5000, 0) != null){
 				info("Element " + ELEMENT_LEFT_MENU_PIPELINE_CONFIGURATION + "... is displayed");
 				break;
@@ -117,7 +116,6 @@ public class NavigationMenu extends PipelineBase {
 				mouseOverAndClick(ELEMENT_LEFT_MENU_DAHSBOARD);
 				break;
 			}
-			click(ELEMENT_LEFT_MENU_DAHSBOARD);
 			if (waitForAndGetElement(ELEMENT_LEFT_MENU_DAHSBOARD, 5000, 0) != null){
 				info("Element " + ELEMENT_LEFT_MENU_DAHSBOARD + "... is displayed");
 				break;
@@ -139,7 +137,6 @@ public class NavigationMenu extends PipelineBase {
 				mouseOverAndClick(ELEMENT_LEFT_MENU_OPERATION);
 				break;
 			}
-			click(ELEMENT_LEFT_MENU_OPERATION);
 			if (waitForAndGetElement(ELEMENT_LEFT_MENU_OPERATION, 5000, 0) != null){
 				info("Element " + ELEMENT_LEFT_MENU_OPERATION + "... is displayed");
 				break;
@@ -161,7 +158,6 @@ public class NavigationMenu extends PipelineBase {
 				mouseOverAndClick(ELEMENT_LEFT_MENU_PIPELINE);
 				break;
 			}
-			click(ELEMENT_LEFT_MENU_PIPELINE);
 			if (waitForAndGetElement(ELEMENT_LEFT_MENU_PIPELINE, 5000, 0) != null){
 				info("Element " + ELEMENT_LEFT_MENU_PIPELINE + "... is displayed");
 				break;
@@ -170,6 +166,95 @@ public class NavigationMenu extends PipelineBase {
 			driver.navigate().refresh();
 		}
 		click(ELEMENT_LEFT_MENU_PIPELINE);
+		Utils.pause(3000);
+		info("The page is opened sucessfully");
+	}
+	
+	/**
+	 * Open Executive Dashboard page
+	 */
+	public void goToExecutiveDashboard(){
+		info("Go to Executive Dashboard page");
+		for(int repeat=0;; repeat ++){
+			if (repeat > 1){
+				mouseOverAndClick(ELEMENT_LEFT_MENU_EXECUTIVE_DASHBOARD);
+				break;
+			}
+			if (waitForAndGetElement(ELEMENT_LEFT_MENU_EXECUTIVE_DASHBOARD, 5000, 0) != null){
+				info("Element " + ELEMENT_LEFT_MENU_EXECUTIVE_DASHBOARD + "... is displayed");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+			driver.navigate().refresh();
+		}
+		click(ELEMENT_LEFT_MENU_EXECUTIVE_DASHBOARD);
+		Utils.pause(3000);
+		info("The page is opened sucessfully");
+	}
+	
+	
+	/**
+	 * Open KPIs Dashboard page
+	 */
+	public void goToKPIDashboard(){
+		info("Go to KPIs Dashboard page");
+		for(int repeat=0;; repeat ++){
+			if (repeat > 1){
+				mouseOverAndClick(ELEMENT_LEFT_MENU_KPI_DASHBOARD);
+				break;
+			}
+			if (waitForAndGetElement(ELEMENT_LEFT_MENU_KPI_DASHBOARD, 5000, 0) != null){
+				info("Element " + ELEMENT_LEFT_MENU_KPI_DASHBOARD + "... is displayed");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+			driver.navigate().refresh();
+		}
+		click(ELEMENT_LEFT_MENU_KPI_DASHBOARD);
+		Utils.pause(3000);
+		info("The page is opened sucessfully");
+	}
+	
+	/**
+	 * Open ABCD page
+	 */
+	public void goToABCD(){
+		info("Go to ABCD page");
+		for(int repeat=0;; repeat ++){
+			if (repeat > 1){
+				mouseOverAndClick(ELEMENT_LEFT_MENU_ABCD);
+				break;
+			}
+			if (waitForAndGetElement(ELEMENT_LEFT_MENU_ABCD, 5000, 0) != null){
+				info("Element " + ELEMENT_LEFT_MENU_ABCD + "... is displayed");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+			driver.navigate().refresh();
+		}
+		click(ELEMENT_LEFT_MENU_ABCD);
+		Utils.pause(3000);
+		info("The page is opened sucessfully");
+	}
+	
+	/**
+	 * Open Historical Data page
+	 */
+	public void goToHistoricalData(){
+		info("Go to Historical Date page");
+		for(int repeat=0;; repeat ++){
+			if (repeat > 1){
+				mouseOverAndClick(ELEMENT_LEFT_MENU_HISTORICAL_DATA);
+				break;
+			}
+			if (waitForAndGetElement(ELEMENT_LEFT_MENU_HISTORICAL_DATA, 5000, 0) != null){
+				info("Element " + ELEMENT_LEFT_MENU_HISTORICAL_DATA + "... is displayed");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+			driver.navigate().refresh();
+		}
+		click(ELEMENT_LEFT_MENU_HISTORICAL_DATA);
 		Utils.pause(3000);
 		info("The page is opened sucessfully");
 	}

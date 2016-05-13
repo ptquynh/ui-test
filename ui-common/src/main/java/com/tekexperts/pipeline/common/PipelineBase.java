@@ -41,6 +41,11 @@ public class PipelineBase extends Configuration{
 	public static String USER_ROOT = "6666";
 	public static String USER_PASS = "Test@123456";
 	public static String password="Test@123456";
+	public static String USER_ROOT_FULLNAME =null;
+	public static String USER_RANDOM_PASSWORD=null;
+	public static String EMAIL_TEST="qatekexperts@gmail.com";
+	public static String EMAIL_TEST_PASS="Test@123456";
+	
 	
 	/**
 	 * Get element
@@ -581,7 +586,37 @@ public class PipelineBase extends Configuration{
 		} catch (StaleElementReferenceException e) {
 			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
 			Utils.pause(WAIT_INTERVAL);
-			select(locator, option);
+			selectNotByOption(locator, option);
+		} finally {
+			loopCount = 0;
+		}
+		Utils.pause(500);
+	}
+	/**
+	 * Select an element has [span] droplist type
+	 * @param locatorField
+	 * @param locatorItem
+	 * @param option
+	 */
+	public void selectNotByOption(Object locatorField,Object locatorItem) {
+		try {
+			for (int second = 0;; second++) {
+				if (second >= DEFAULT_TIMEOUT/WAIT_INTERVAL) {
+					Assert.fail("Timeout at select: " + locatorItem);
+				}
+				WebElement field=waitForAndGetElement(locatorField,DEFAULT_TIMEOUT,1);
+				field.click();
+				WebElement el =waitForAndGetElement(locatorItem,DEFAULT_TIMEOUT,1);
+                el.click();
+				 if (field.getText().equals(el.getText())|| field.getText().contains(el.getText())) {
+						break;
+					}
+				Utils.pause(WAIT_INTERVAL);
+			}
+		} catch (StaleElementReferenceException e) {
+			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
+			Utils.pause(WAIT_INTERVAL);
+			selectNotByOption(locatorField,locatorItem);
 		} finally {
 			loopCount = 0;
 		}
@@ -1371,6 +1406,6 @@ public class PipelineBase extends Configuration{
 		userData.setUserData(userDataFile,userSheet,opParams);
         USER_ROOT=userData.hpid.get(0);
         USER_PASS=userData.password.get(0);
-	}
-	
+        USER_ROOT_FULLNAME = userData.fullname.get(0);
+	}	
 }

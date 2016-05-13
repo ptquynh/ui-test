@@ -22,6 +22,9 @@ public class ManageLogInOut extends PipelineBase {
 	//Logout icon
 	public By ELEMENT_LOGOUT_ICON=By.xpath("//*[contains(@href,'/Login/Logout')]//i");
 	
+	//************MESSAGE****************\\
+	public String ELEMENT_LOGIN_ERROR_MESSAGE=".//*[@id='validationSummary']//*[contains(text(),'$error')]";
+	
 	//********************************FUNCTIONS******************************\\
 	public ManageLogInOut(WebDriver dr){
 		driver = dr;
@@ -53,7 +56,6 @@ public class ManageLogInOut extends PipelineBase {
 				mouseOverAndClick(ELEMENT_LOGOUT_ICON);
 				break;
 			}
-			click(ELEMENT_LOGOUT_ICON);
 			if (waitForAndGetElement(ELEMENT_LOGOUT_ICON, 5000, 0) != null){
 				info("Element " + ELEMENT_LOGOUT_ICON + "... is displayed");
 				break;

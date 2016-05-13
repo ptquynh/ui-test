@@ -19,6 +19,13 @@
 		</dependency>
   </dependencies>
   <profiles>
+        <!-- Smoke Testing-->
+		<profile>
+			<id>Smoke-Testing</id>
+			<properties>
+				<testSuite>smoke-testing.xml</testSuite>
+			</properties>
+		</profile>
 		<!-- Testing failed-->
 		<profile>
 			<id>testng-failed</id>

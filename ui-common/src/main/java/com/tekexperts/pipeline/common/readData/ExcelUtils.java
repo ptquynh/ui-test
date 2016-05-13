@@ -1,7 +1,9 @@
 package com.tekexperts.pipeline.common.readData;
 
 import java.io.FileInputStream;
+
 import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -10,6 +12,7 @@ public class ExcelUtils {
 	private static HSSFSheet ExcelWSheet;
 	private static HSSFWorkbook ExcelWBook;
 	private static HSSFCell Cell;
+	private static HSSFFont hSSFFont;
 	//This method is to set the File path and to open the Excel file, Pass Excel Path and Sheetname as Arguments to this method
 	public static void setExcelFile(String Path,String SheetName) throws Exception {
 		try {
@@ -18,6 +21,9 @@ public class ExcelUtils {
 			// Access the required test data sheet
 			ExcelWBook = new HSSFWorkbook(ExcelFile);
 			ExcelWSheet = ExcelWBook.getSheet(SheetName);
+			hSSFFont = ExcelWBook.createFont();
+			hSSFFont.setFontName(HSSFFont.FONT_ARIAL);
+			hSSFFont.setCharSet(HSSFFont.ANSI_CHARSET);
 		} catch (Exception e){
 			throw (e);
 		}
@@ -37,8 +43,8 @@ public class ExcelUtils {
 		int xRows = ExcelWSheet.getLastRowNum();
 		int xCols = ExcelWSheet.getRow(0).getLastCellNum();
 		int nRow = 1;
+		
 		String[][] xData = new String[xRows][xCols];
-
 		for (int i = 0; i < xRows; i++) {
 			HSSFRow row = ExcelWSheet.getRow(nRow);
 			for (int j = 0; j < xCols; j++) {

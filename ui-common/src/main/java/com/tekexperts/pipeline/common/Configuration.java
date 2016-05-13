@@ -28,9 +28,13 @@ public class Configuration {
 	protected boolean ieFlag;	 
 	protected boolean chromeFlag;
 	
-	//Attached file path
+	//Data file path
 	protected String attachmentFilePath;
 	protected String userDataFilePath;
+	protected String messageFilePath;
+	protected String assignRuleFilePath;
+	protected String rsrEmployFilePath;
+	protected String ATRFilePath;
 
 	public final int ACTION_REPEAT = 5;
 	public static boolean firstTimeLogin = false;
@@ -69,6 +73,11 @@ public class Configuration {
 	
 	public final String DEFAULT_USERFILEURL="DataDriven/" + "user.xls";
 	public final String DEFAULT_ATTACHEDFILEURL="DataDriven/" + "attachedFileList.xls";
+	public final String DEFAULT_MESSAGEFILEURL="DataDriven/" + "message.xls";
+	public final String DEFAULT_ASSIGNRULEURL = "DataDriven/" + "assignmentRules.xls";
+	public final String DEFAULT_RSREMPLOYEESURL ="DataDriven/" + "RSREmployees.xls";
+	public static String PATH_TESTDATA="TestData/";
+	
 	
 	/**
 	 * Get System Property
@@ -82,6 +91,10 @@ public class Configuration {
 		defaultSheet = System.getProperty("defaultSheet");
 		userDataFilePath = System.getProperty("userDataFilePath");
 		attachmentFilePath =System.getProperty("attachmentFilePath");
+		messageFilePath =System.getProperty("messageFilePath");
+		assignRuleFilePath = System.getProperty("assignRuleFilePath");
+		rsrEmployFilePath = System.getProperty("rsrEmployFilePath");
+		ATRFilePath = System.getProperty("ATRFilePath");
 		
 		if (nativeEvent==null) nativeEvent = DEFAULT_NATIVE_EVENT;
 		if (browser==null) browser = DEFAULT_BROWSER;
@@ -94,10 +107,17 @@ public class Configuration {
 		
 		if (userDataFilePath==null) userDataFilePath = DEFAULT_USERFILEURL;
 		if (attachmentFilePath==null) attachmentFilePath = DEFAULT_ATTACHEDFILEURL;
-		
+		if (messageFilePath==null) messageFilePath=DEFAULT_MESSAGEFILEURL;
+		if (assignRuleFilePath==null)assignRuleFilePath = DEFAULT_ASSIGNRULEURL;
+		if (rsrEmployFilePath==null) rsrEmployFilePath = DEFAULT_RSREMPLOYEESURL;
 		
 		userDataFilePath = getAbsoluteFilePath(userDataFilePath);
 		attachmentFilePath = getAbsoluteFilePath(attachmentFilePath);
+		messageFilePath = getAbsoluteFilePath(messageFilePath);
+		assignRuleFilePath = getAbsoluteFilePath(assignRuleFilePath);
+		rsrEmployFilePath = getAbsoluteFilePath(rsrEmployFilePath);
+		PATH_TESTDATA = getAbsoluteFilePath(PATH_TESTDATA);
+		ATRFilePath = getAbsoluteFilePath(ATRFilePath);
 	}
 	
 	/**
