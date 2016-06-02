@@ -7,15 +7,15 @@
 			</run>
 		</groups>
 		<classes>
-			<class name="com.tekexperts.selenium.smoke.TestConfig_Smoke" />
+			<class name="com.tekexperts.selenium.smoke.TestConfig_LoginOut" />
 			<class name="com.tekexperts.selenium.smoke.Smoke_LoginOut" />
+			<class name="com.tekexperts.selenium.smoke.TestConfig_Smoke" />
 			<class name="com.tekexperts.selenium.smoke.Smoke_BusinessManagement" />
 			<class name="com.tekexperts.selenium.smoke.Smoke_Organization" />
 			<class name="com.tekexperts.selenium.smoke.Smoke_PipelineManagement" />
 			<class name="com.tekexperts.selenium.smoke.Smoke_DataImport" />
 			<class name="com.tekexperts.selenium.smoke.Smoke_Dashboards" />
 			<class name="com.tekexperts.selenium.smoke.Smoke_HistoricalData" />
-			<class name="com.tekexperts.selenium.smoke.Smoke_PipelineConfiguration" />
 		</classes>
 	</test>
 	<listeners>

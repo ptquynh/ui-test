@@ -4,6 +4,8 @@ import static com.tekexperts.pipeline.common.TestLogger.info;
 
 import org.testng.annotations.Test;
 
+import com.tekexperts.pipeline.administration.dataImport.AssignmentRules.assignmentCol;
+
 public class Smoke_DataImport extends TestConfig_Smoke{
 	/**
 	 * Test case ID: VAN-1733
@@ -116,7 +118,7 @@ public class Smoke_DataImport extends TestConfig_Smoke{
 		assignRule.add(superRegion, region, country, businessUnit, productLine, 
 				shipToAMID, soldToAMIDLevel2, customerNameShipTo, customerNameSoldTo, assignTo);
 		info("Verify that the new assigment rule is displayed in the table");
-		assignRule.searchByShipToAMID(shipToAMID);
+		assignRule.searchBy(assignmentCol.SHIPTO_AMID,shipToAMID);
 		assignRule.verifyAssignRuleInTheTable(shipToAMID);
 	}
 }

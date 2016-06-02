@@ -1,5 +1,7 @@
 package com.tekexperts.pipeline.common.readData;
 
+import java.util.ArrayList;
+
 //import com.tekexperts.pipeline.common.pipelineBase;
 
 public class DatabaseResource {
@@ -22,6 +24,41 @@ public class DatabaseResource {
 		}
 		return arrayData;
 	}
-	
+	/**
+	 * Update data in existing excel file for many contracts
+	 * @param userDataFile
+	 * @param userSheet
+	 * @param rowList
+	 * @param cellNum
+	 * @param updateValue
+	 * @param opParams
+	 * @throws Exception
+	 */
+	public static void writeDataFromSource(String userDataFile,String userSheet,ArrayList<Integer> rowList, 
+			ArrayList<Integer> cellNum,ArrayList<String> updateValue, Object... opParams) throws Exception{
+		Boolean isUseFile = (Boolean)(opParams.length > 0 ? opParams[0]: true);
+		if(isUseFile){
+			ExcelUtils.setExcelFile(userDataFile,userSheet);
+			ExcelUtils.writeData(userDataFile,rowList,cellNum,updateValue);
+		}
+	}
+	/**
+	 * Update data in existing excel file for one contracts
+	 * @param userDataFile
+	 * @param userSheet
+	 * @param row
+	 * @param cellNum
+	 * @param updateValue
+	 * @param opParams
+	 * @throws Exception
+	 */
+	public static void writeDataFromSource(String userDataFile,String userSheet,int row, 
+			int cellNum,String updateValue, Object... opParams) throws Exception{
+		Boolean isUseFile = (Boolean)(opParams.length > 0 ? opParams[0]: true);
+		if(isUseFile){
+			ExcelUtils.setExcelFile(userDataFile,userSheet);
+			ExcelUtils.writeData(userDataFile,row,cellNum,updateValue);
+		}
+	}
 	
 }

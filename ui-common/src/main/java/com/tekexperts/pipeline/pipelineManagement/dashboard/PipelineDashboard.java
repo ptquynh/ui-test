@@ -23,4 +23,5 @@ public class PipelineDashboard extends PipelineBase{
 		waitForAndGetElement(ELEMENT_DASHBOARD_PIPELINE_PAGE_TITLE,2000,1);
 		info("The page is shown");
 	}
+	
 }

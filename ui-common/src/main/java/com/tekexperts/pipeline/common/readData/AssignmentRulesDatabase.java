@@ -71,7 +71,7 @@ public class AssignmentRulesDatabase {
 	 */
 	public void setData(String dataFile, String userSheet, Object... opParams) throws Exception{
 		String[][] testData = DatabaseResource.getDataFromSource(dataFile,userSheet,opParams);
-		for(int i = 0; i<testData.length; i++)
+		for(int i = 1; i<testData.length; i++)
 		{	
 			type.add(Integer.valueOf(testData[i][0]));
 			superRegion.add(testData[i][1]);
@@ -95,8 +95,10 @@ public class AssignmentRulesDatabase {
 		String text="";
 		for(int i = 0; i<this.type.size(); i++)
 		{
-			if(this.type.get(i) == type)
+			if(this.type.get(i) == type){
 				text=superRegion.get(i);
+				if(text==null) text="";
+			}
 		}
 		return text;
 	}
@@ -110,8 +112,10 @@ public class AssignmentRulesDatabase {
 		String text="";
 		for(int i = 0; i<this.type.size(); i++)
 		{
-			if(this.type.get(i) == type)
+			if(this.type.get(i) == type){
 				text=region.get(i);
+				if(text==null) text="";
+			}
 		}
 		return text;
 	}
@@ -124,8 +128,10 @@ public class AssignmentRulesDatabase {
 		String text="";
 		for(int i = 0; i<this.type.size(); i++)
 		{
-			if(this.type.get(i) == type)
+			if(this.type.get(i) == type){
 				text=country.get(i);
+				if(text==null) text="";
+			}
 		}
 		return text;
 	}
@@ -138,8 +144,10 @@ public class AssignmentRulesDatabase {
 		String text="";
 		for(int i = 0; i<this.type.size(); i++)
 		{
-			if(this.type.get(i) == type)
+			if(this.type.get(i) == type){
 				text=productLine.get(i);
+				if(text==null) text="";
+			}
 		}
 		return text;
 	}
@@ -152,8 +160,10 @@ public class AssignmentRulesDatabase {
 		String text="";
 		for(int i = 0; i<this.type.size(); i++)
 		{
-			if(this.type.get(i) == type)
+			if(this.type.get(i) == type){
 				text=businessUnit.get(i);
+				if(text==null) text="";
+			}
 		}
 		return text;
 	}
@@ -166,8 +176,10 @@ public class AssignmentRulesDatabase {
 		String text="";
 		for(int i = 0; i<this.type.size(); i++)
 		{
-			if(this.type.get(i) == type)
+			if(this.type.get(i) == type){
 				text=shipToAMID.get(i);
+				if(text==null) text="";
+			}
 		}
 		return text;
 	}
@@ -180,8 +192,10 @@ public class AssignmentRulesDatabase {
 		String text="";
 		for(int i = 0; i<this.type.size(); i++)
 		{
-			if(this.type.get(i) == type)
+			if(this.type.get(i) == type){
 				text=soldToMID.get(i);
+				if(text==null) text="";
+			}
 		}
 		return text;
 	}
@@ -194,8 +208,10 @@ public class AssignmentRulesDatabase {
 		String text="";
 		for(int i = 0; i<this.type.size(); i++)
 		{
-			if(this.type.get(i) == type)
+			if(this.type.get(i) == type){
 				text=customerNameShipTo.get(i);
+				if(text==null) text="";
+			}
 		}
 		return text;
 	}
@@ -208,8 +224,10 @@ public class AssignmentRulesDatabase {
 		String text="";
 		for(int i = 0; i<this.type.size(); i++)
 		{
-			if(this.type.get(i) == type)
+			if(this.type.get(i) == type){
 				text=customerNameSoldTo.get(i);
+				if(text==null) text="";
+			}
 		}
 		return text;
 	}
@@ -222,8 +240,10 @@ public class AssignmentRulesDatabase {
 		String text="";
 		for(int i = 0; i<this.type.size(); i++)
 		{
-			if(this.type.get(i) == type)
+			if(this.type.get(i) == type){
 				text=assignTo.get(i);
+				if(text==null) text="";
+			}
 		}
 		return text;
 	}

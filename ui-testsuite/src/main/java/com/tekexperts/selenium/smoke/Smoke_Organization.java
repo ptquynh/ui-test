@@ -1,6 +1,9 @@
 package com.tekexperts.selenium.smoke;
 
 import org.testng.annotations.Test;
+
+import com.tekexperts.pipeline.administration.organization.User.filters;
+
 import static com.tekexperts.pipeline.common.TestLogger.info;
 public class Smoke_Organization extends TestConfig_Smoke{
 	/**
@@ -42,7 +45,8 @@ public class Smoke_Organization extends TestConfig_Smoke{
 		region.goToAddRegion();
 		info("Add a new region");
 		region.add(name, status, level, regionType, parent, description);
-		region.verifyRegionInTheTable(name,false);
+		region.searchByStatus(status);
+		region.verifyRegionInTheTable(name);
 	}
 	
 	/**
@@ -179,8 +183,9 @@ public class Smoke_Organization extends TestConfig_Smoke{
 		user.goToAddUser();
 		info("Add a new user");
 		user.add(fullName, email, hpID, pass, confirmPass, isView, isRandomPass, jobTitle, rtm, region, telephone, city, country, status, role);
+		user.save();
 		user.searchByStatus(true,false);
-		user.searchByFullName(fullName);
+		user.searchBy(filters.FULL_NAME,fullName);
 		user.verifyUserInTheTable(fullName);
 		
 		info("Logout");

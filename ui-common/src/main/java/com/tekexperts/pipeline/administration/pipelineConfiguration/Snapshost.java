@@ -30,8 +30,12 @@ public class Snapshost extends PipelineBase {
 	public By ELEMENT_SNAPSHOT_BY_FILTER=By.xpath(".//*[@id='gvSnapShot_DXFREditorcol5_I']");
 	//Delete link
 	public String ELEMENT_SNAPSHOT_DELETE_LINK=".//*[@id='gvSnapShot_DXMainTable']//*[contains(text(),'$name')]/../..//*[contains(text(),'Delete')]";
+	public By ELEMENT_SNAPSHOT_CONFIRM_YES_BTN=By.xpath(".//*[@id='confirm']//*[@id='btnConfirmSubmit']");
 	//Snapshot's name
 	public String ELEMENT_SNAPSHOT_NAME_LINK=".//*[@id='gvSnapShot_DXMainTable']//*[contains(text(),'$name')]";
+	
+	//Snapshot required
+	public By ELEMENT_SNAPSHOT_REQUIRED_LINK=By.xpath(".//*[@id='gvSnapShot_DXMainTable']//*[contains(text(),'Required')]");
 	
 	public Snapshost(WebDriver dr) {
 		driver=dr;
@@ -49,6 +53,27 @@ public class Snapshost extends PipelineBase {
 		info("Click on Add button");
 		click(ELEMENT_SNAPSHOT_ADD_BTN);
 		Utils.pause(3000);
+	}
+	/**
+	 * Check having a required snapshot
+	 * @param name
+	 * @return boolean
+	 */
+	public boolean isHasSnapshotRequired(){
+		if(waitForAndGetElement(ELEMENT_SNAPSHOT_REQUIRED_LINK,3000,0)!=null)
+			return true;
+		else return false;
+	}
+	/**
+	 * Delete a snapshot
+	 * @param name
+	 */
+	public void delete(String name){
+		info("Delete a snaphost");
+		click(ELEMENT_SNAPSHOT_DELETE_LINK.replace("$name",name));
+		click(ELEMENT_SNAPSHOT_CONFIRM_YES_BTN);
+		waitForElementNotPresent(ELEMENT_SNAPSHOT_NAME_LINK.replace("$name",name),2000,1);
+		info("The snapshot is deleted successfully");
 	}
 	/**
 	 * Search a snapshot by name

@@ -1,6 +1,7 @@
 package com.tekexperts.pipeline.common.readData;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.tekexperts.pipeline.common.TestLogger.info;
 public class OrderDatabase {
@@ -71,6 +72,7 @@ public class OrderDatabase {
 	public ArrayList<String> annualisedOrderValue$;
 	public ArrayList<String> cqRevenue;
 	public ArrayList<String> wwRegion;
+	public ArrayList<String> region;
 	public ArrayList<String> subRegionEMEAMgd;
 	public ArrayList<String> subRegionEmeaFinanceFormat;
 	public ArrayList<String> expiringDoc;
@@ -140,14 +142,13 @@ public class OrderDatabase {
 			ArrayList<String> annualisedOrderValueLC,
 			ArrayList<String> annualisedOrderValue$,
 			ArrayList<String> cqRevenue, ArrayList<String> wwRegion,
-			ArrayList<String> subRegionEMEAMgd,
+			ArrayList<String> region,ArrayList<String> subRegionEMEAMgd,
 			ArrayList<String> subRegionEmeaFinanceFormat,
 			ArrayList<String> expiringDoc, ArrayList<String> currentDoc,
 			ArrayList<String> supportLevel, ArrayList<String> assignment,
 			ArrayList<String> rtm, ArrayList<String> atrType,
 			ArrayList<String> falloutCheck1, ArrayList<String> reconciled1,
 			ArrayList<String> falloutcheck2) {
-
 		this.payerCustomerIdentifier = payerCustomerIdentifier;
 		this.payerCustomerName = payerCustomerName;
 		this.soldToCustomerIdentifier = soldToCustomerIdentifier;
@@ -214,6 +215,7 @@ public class OrderDatabase {
 		this.annualisedOrderValue$ = annualisedOrderValue$;
 		this.cqRevenue = cqRevenue;
 		this.wwRegion = wwRegion;
+		this.region=region;
 		this.subRegionEMEAMgd = subRegionEMEAMgd;
 		this.subRegionEmeaFinanceFormat = subRegionEmeaFinanceFormat;
 		this.expiringDoc = expiringDoc;
@@ -298,6 +300,7 @@ public class OrderDatabase {
 		annualisedOrderValue$ = new ArrayList<String>();
 		cqRevenue = new ArrayList<String>();
 		wwRegion = new ArrayList<String>();
+		region = new  ArrayList<String>();
 		subRegionEMEAMgd = new ArrayList<String>();
 		subRegionEmeaFinanceFormat = new ArrayList<String>();
 		expiringDoc = new ArrayList<String>();
@@ -324,7 +327,7 @@ public class OrderDatabase {
 		String[][] testData = DatabaseResource.getDataFromSource(dataFile,
 				userSheet, opParams);
 		info("dataFile path:" + dataFile);
-		for (int i = 0; i < testData.length; i++) {
+		for (int i = 1; i < testData.length; i++) {
 			info("i:" + i);
 			payerCustomerIdentifier.add(testData[i][0]);
 			payerCustomerName.add(testData[i][1]);
@@ -393,17 +396,122 @@ public class OrderDatabase {
 			annualisedOrderValue$.add(testData[i][64]);
 			cqRevenue.add(testData[i][65]);
 			wwRegion.add(testData[i][66]);
-			subRegionEMEAMgd.add(testData[i][67]);
-			subRegionEmeaFinanceFormat.add(testData[i][68]);
-			expiringDoc.add(testData[i][69]);
-			currentDoc.add(testData[i][70]);
-			supportLevel.add(testData[i][71]);
-			assignment.add(testData[i][72]);
-			rtm.add(testData[i][73]);
-			atrType.add(testData[i][74]);
-			falloutCheck1.add(testData[i][75]);
-			reconciled1.add(testData[i][76]);
-			falloutcheck2.add(testData[i][77]);
+			region.add(testData[i][67]);
+			subRegionEMEAMgd.add(testData[i][68]);
+			subRegionEmeaFinanceFormat.add(testData[i][69]);
+			expiringDoc.add(testData[i][70]);
+			currentDoc.add(testData[i][71]);
+			supportLevel.add(testData[i][72]);
+			assignment.add(testData[i][73]);
+			rtm.add(testData[i][74]);
+			atrType.add(testData[i][75]);
+			falloutCheck1.add(testData[i][76]);
+			reconciled1.add(testData[i][77]);
+			falloutcheck2.add(testData[i][78]);
 		}
+	}
+	
+	/**
+	 * Get all data of all columns in View detail list
+	 * @return list
+	 */
+	public List<String> getViewDetailList(int index){
+		List<String> list1=new ArrayList<String>();
+		list1.add(payerCustomerIdentifier.get(index));
+		list1.add(payerCustomerName.get(index));
+		list1.add(soldToCustomerIdentifier.get(index));
+		list1.add(soldToCustomerName.get(index));
+		list1.add(soldToAMIDLevel2Identifier.get(index));
+		list1.add(soldToAMIDLevel2Name.get(index));
+		list1.add(soldToAMIDLevel4Identifier.get(index));
+		list1.add(soldToAMIDLevel4Name.get(index));
+		list1.add(shipToAMIDLevel2Identifier.get(index));
+		list1.add(shipToAMIDLevel2Name.get(index));
+		list1.add(shipToCustomerName.get(index));
+		list1.add(profitCenterLevel1Description.get(index));
+		list1.add(profitCenterLevel2Description.get(index));
+		list1.add(profitCenterLevel3Description.get(index));
+		list1.add(profitCenterLevel4Description.get(index));
+		list1.add(profitCenterLevel5Description.get(index));
+		list1.add(legacySalesOrderIdentifier.get(index));
+		list1.add(salesOrderIdentifier.get(index));
+		list1.add(customerPurchaseOrderIdentifier.get(index));
+		list1.add(financialCloseCalendarDateDDMMYYYYCode.get(index));
+		list1.add(financialCloseFiscalYearMonthCode.get(index));
+		list1.add(financialCloseFiscalYearQuarterCode.get(index));
+		list1.add(salesChannelName.get(index));
+		list1.add(salesRepresentativeCode.get(index));
+		list1.add(salesOrderTypeCode.get(index));
+		list1.add(businessAreaCode.get(index));
+		list1.add(businessTypeCode.get(index));
+		list1.add(businessTypeCodeName.get(index));
+		list1.add(businessAreaDescription.get(index));
+		list1.add(businessTypeGroupCodeDescription.get(index));
+		list1.add(businessGroupDescription.get(index));
+		list1.add(manufacturingProductDescription.get(index));
+		list1.add(manufacturingProductIdentifier.get(index));
+		list1.add(manufacturingProductSalesProductIdentifier.get(index));
+		list1.add(netSalesOrderUSDollarAmount.get(index));
+		list1.add(grossSalesOrderUSDollarAmount.get(index));
+		list1.add(netSalesOrderDocumentCurrencyAmount.get(index));
+		list1.add(grossSalesOrderUSDollarAmount.get(index));
+		list1.add(documentExchangeRate.get(index));
+		list1.add(localCurrencyCode.get(index));
+		list1.add(documentCurrencyCode.get(index));
+		list1.add(start.get(index));
+		list1.add(end.get(index));
+		list1.add(funcLoc.get(index));
+		list1.add(said.get(index));
+		list1.add(previousDoc.get(index));
+		list1.add(billingType.get(index));
+		list1.add(sectionInCurrentForecast.get(index));
+		list1.add(billingDescription.get(index));
+		list1.add(durationDays.get(index));
+		list1.add(durationMonths.get(index));
+		list1.add(businessUnit.get(index));
+		list1.add(busisnessType.get(index));
+		list1.add(invoicing.get(index));
+		list1.add(rtsNPASku.get(index));
+		list1.add(rtsCheck.get(index));
+		list1.add(annualiseYOrN.get(index));
+		list1.add(annualisedOrderValueLC.get(index));
+		list1.add(annualisedOrderValue$.get(index));
+		list1.add(cqRevenue.get(index));
+		list1.add(wwRegion.get(index));
+		list1.add(expiringDoc.get(index));
+		list1.add(currentDoc.get(index));
+		list1.add(supportLevel.get(index));
+		list1.add(region.get(index));
+		return list1;
+	}
+	/**
+	 * Get number data from order file after x 1000
+	 * @param txt
+	 * @return number
+	 */
+	public double getDataNumber(String txt){
+		double number =Math.round(Double.parseDouble(txt))*1000;
+		return number;
+		
+	}
+	/**
+	 * Get a origin number from the file
+	 * @param txt
+	 * @return number
+	 */
+	public double getDataNumberNoConvert(String txt){
+		double number =Math.round(Double.parseDouble(txt));
+		return number;
+		
+	}
+	/**
+	 * Get origin number from the file
+	 * @param txt
+	 * @return number
+	 */
+	public double getDataOriginNumber(String txt){
+		double number =Double.parseDouble(txt);
+		return number;
+		
 	}
 }

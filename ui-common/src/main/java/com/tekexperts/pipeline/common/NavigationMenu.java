@@ -5,6 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class NavigationMenu extends PipelineBase {
+	//**********************HOME PAGE************************\\
+	public By ELEMENT_HOMEPAGE_TEXT=By.xpath(".//*[@id='right-side']//div[@class='home-welcome']");
 	 //********************LEFT MENU*****************\\
     //Administration-->Left Menu
 	public By ELEMENT_LEFT_MENU_ORGANIZATION = By.xpath(".//*[@href='/ControlPanel/Account']");
@@ -22,7 +24,8 @@ public class NavigationMenu extends PipelineBase {
 	public By ELEMENT_LEFT_MENU_PIPELINE = By.xpath(".//*[@id='left-side']//*[@href='/Pipeline']");
 	public By ELEMENT_LEFT_MENU_HISTORICAL_DATA = By.xpath(".//*[@href='/HistoricalContract']");
 	//Left menu when collapsed
-	public By ELEMENT_LEFT_MENU_COLLAPSE_STATUS=By.xpath(".//*[@id='left-side'][contains(@class,'collapse-left')]");
+	public By ELEMENT_LEFT_MENU_COLLAPSE_STATUS=By.xpath(".//*[@id='left-side'][@class='left-side sidebar-offcanvas collapse-left']");
+	public By ELEMENT_LEFT_MENU_EXPAND_STATUS=By.xpath(".//*[@id='left-side'][@class='left-side sidebar-offcanvas']");
 	
 	//************************NAVIGATION BAR************************************\\	
 	//Logo
@@ -255,6 +258,35 @@ public class NavigationMenu extends PipelineBase {
 			driver.navigate().refresh();
 		}
 		click(ELEMENT_LEFT_MENU_HISTORICAL_DATA);
+		Utils.pause(3000);
+		info("The page is opened sucessfully");
+	}
+	/**
+	 * Expand or Collapse the left menu
+	 */
+	public void expandCollapseMenu(){
+		info("Click on the button");
+		click(ELEMENT_NAVIGATION_BAR_EXPAND_COLLAPSE_BTN);
+		Utils.pause(2000);
+	}
+	/**
+	 * Open User profile page
+	 */
+	public void goToUserProfile(){
+		info("Go to User profile page");
+		for(int repeat=0;; repeat ++){
+			if (repeat > 1){
+				mouseOverAndClick(ELEMENT_NAVIGATION_BAR_USER_PROFILE_ICON);
+				break;
+			}
+			if (waitForAndGetElement(ELEMENT_NAVIGATION_BAR_USER_PROFILE_ICON, 5000, 0) != null){
+				info("Element " + ELEMENT_NAVIGATION_BAR_USER_PROFILE_ICON + "... is displayed");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+			driver.navigate().refresh();
+		}
+		click(ELEMENT_NAVIGATION_BAR_USER_PROFILE_ICON);
 		Utils.pause(3000);
 		info("The page is opened sucessfully");
 	}

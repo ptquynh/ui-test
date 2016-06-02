@@ -1,8 +1,11 @@
 package com.tekexperts.pipeline.common.readData;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import static com.tekexperts.pipeline.common.TestLogger.info;
 public class ATRDatabase {
+	public ArrayList<String> allData;
 	public ArrayList<String> trad;
 	public ArrayList<String> wwRegion;
 	public ArrayList<String> region;
@@ -14,7 +17,13 @@ public class ATRDatabase {
 	public ArrayList<String> soldToAMID3ID;
 	public ArrayList<String> soldToAMID3Name;
 	public ArrayList<String> soldToAMID2ID;
-	public ArrayList<String> soldToaMID2Name;
+	public ArrayList<String> soldToAMID2Name;
+	public ArrayList<String> shipToAMID4ID;
+	public ArrayList<String> shipToAMID4Name;
+	public ArrayList<String> shipToAMID3ID;
+	public ArrayList<String> shipToAMID3Name;
+	public ArrayList<String> shipToAMID2ID;
+	public ArrayList<String> shipToAMID2Name;
 	public ArrayList<String> shipToID;
 	public ArrayList<String> shipToName;
 	public ArrayList<String> swstPartyEng;
@@ -79,7 +88,7 @@ public class ATRDatabase {
 	public ArrayList<String> quarterYear;
 	public ArrayList<String> halfYear;
 	public ArrayList<String> cleanSoldToAmid2ID;
-	public ArrayList<String> cleanSoldToAmid2Name;
+	public ArrayList<String> cleansoldToAMID2Name;
 	public ArrayList<String> salesRep;
 	public ArrayList<String> employeeID;
 	public ArrayList<String> rtm;
@@ -120,6 +129,7 @@ public class ATRDatabase {
 	public ArrayList<String> fcstStatus;
 	public ArrayList<String> poIn;
 	public ArrayList<String> fcstRisk;
+	public ArrayList<String> multiyearQuote;
 	public ArrayList<String> manualRev;
 	public ArrayList<String> lostReason;
 	public ArrayList<String> lostRisk;
@@ -174,7 +184,13 @@ public class ATRDatabase {
 	 * @param soldToAMID3ID
 	 * @param soldToAMID3Name
 	 * @param soldToAMID2ID
-	 * @param soldToaMID2Name
+	 * @param soldToAMID2Name
+	 * @param shipToAMID4ID
+	 * @param shipToAMID4Name
+	 * @param shipToAMID3ID
+	 * @param shipToAMID3Name
+	 * @param shipToAMID2ID
+	 * @param shipToAMID2Name
 	 * @param shipToID
 	 * @param shipToName
 	 * @param swstPartyEng
@@ -239,7 +255,7 @@ public class ATRDatabase {
 	 * @param quarterYear
 	 * @param halfYear
 	 * @param cleanSoldToAmid2ID
-	 * @param cleanSoldToAmid2Name
+	 * @param cleansoldToAMID2Name
 	 * @param salesRep
 	 * @param employeeID
 	 * @param rtm
@@ -280,6 +296,7 @@ public class ATRDatabase {
 	 * @param fcstStatus
 	 * @param poIn
 	 * @param fcstRisk
+	 * @param multiyearQuote
 	 * @param manualRev
 	 * @param lostReason
 	 * @param lostRisk
@@ -326,7 +343,10 @@ public class ATRDatabase {
 			ArrayList<String> country, ArrayList<String> expDocNb,
 			ArrayList<String> soldToAMID4ID, ArrayList<String> soldToAMID4Name,
 			ArrayList<String> soldToAMID3ID, ArrayList<String> soldToAMID3Name,
-			ArrayList<String> soldToAMID2ID, ArrayList<String> soldToaMID2Name,
+			ArrayList<String> soldToAMID2ID, ArrayList<String> soldToAMID2Name,
+			ArrayList<String> shipToAMID4ID, ArrayList<String> shipToAMID4Name,
+			ArrayList<String> shipToAMID3ID, ArrayList<String> shipToAMID3Name,
+			ArrayList<String> shipToAMID2ID, ArrayList<String> shipToAMID2Name,
 			ArrayList<String> shipToID, ArrayList<String> shipToName,
 			ArrayList<String> swstPartyEng, ArrayList<String> swstPartyStreet,
 			ArrayList<String> swstPartyAddr2, ArrayList<String> swstPartyAddr3,
@@ -364,7 +384,7 @@ public class ATRDatabase {
 			ArrayList<String> fiscalQuarter, ArrayList<String> fiscalYear,
 			ArrayList<String> fiscalHalf, ArrayList<String> quarterYear,
 			ArrayList<String> halfYear, ArrayList<String> cleanSoldToAmid2ID,
-			ArrayList<String> cleanSoldToAmid2Name, ArrayList<String> salesRep,
+			ArrayList<String> cleansoldToAMID2Name, ArrayList<String> salesRep,
 			ArrayList<String> employeeID, ArrayList<String> rtm,
 			ArrayList<String> segment, ArrayList<String> subSegment,
 			ArrayList<String> cleanShipToAmid2ID,
@@ -390,7 +410,7 @@ public class ATRDatabase {
 			ArrayList<String> totalFCSTLCLFX, ArrayList<String> quoteCurrency,
 			ArrayList<String> quoteStatus, ArrayList<String> renewalStatus,
 			ArrayList<String> closeDate, ArrayList<String> fcstStatus,
-			ArrayList<String> poIn, ArrayList<String> fcstRisk,
+			ArrayList<String> poIn, ArrayList<String> fcstRisk,ArrayList<String>multiyearQuote,
 			ArrayList<String> manualRev, ArrayList<String> lostReason,
 			ArrayList<String> lostRisk, ArrayList<String> invalidReason,
 			ArrayList<String> comments,
@@ -420,8 +440,8 @@ public class ATRDatabase {
 			ArrayList<String> camEmployeeID, ArrayList<String> camType,
 			ArrayList<String> camRisk, ArrayList<String> camComments,
 			ArrayList<String> flexcareCODE, ArrayList<String> flexcareYN,
-			ArrayList<String> onTimeRR, ArrayList<String> campaignName) {
-		
+			ArrayList<String> onTimeRR, ArrayList<String> campaignName,ArrayList<String> allData) {
+		 this.allData=allData;
 		 this.trad=trad;
 		 this.wwRegion=wwRegion;
 		 this.region=region;
@@ -433,7 +453,13 @@ public class ATRDatabase {
 		 this.soldToAMID3ID=soldToAMID3ID;
 		 this.soldToAMID3Name=soldToAMID3Name;
 		 this.soldToAMID2ID=soldToAMID2ID;
-		 this.soldToaMID2Name=soldToaMID2Name;
+		 this.soldToAMID2Name=soldToAMID2Name;
+		 this.shipToAMID4ID=shipToAMID4ID;
+		 this.shipToAMID4Name=shipToAMID4Name;
+		 this.shipToAMID3ID=shipToAMID3ID;
+		 this.shipToAMID3Name=shipToAMID3Name;
+		 this.shipToAMID2ID=shipToAMID2ID;
+		 this.shipToAMID2Name=shipToAMID2Name;
 		 this.shipToID=shipToID;
 		 this.shipToName=shipToName;
 		 this.swstPartyEng=swstPartyEng;
@@ -498,7 +524,7 @@ public class ATRDatabase {
 		 this.quarterYear=quarterYear;
 		 this.halfYear=halfYear;
 		 this.cleanSoldToAmid2ID=cleanSoldToAmid2ID;
-		 this.cleanSoldToAmid2Name=cleanSoldToAmid2Name;
+		 this.cleansoldToAMID2Name=cleansoldToAMID2Name;
 		 this.salesRep=salesRep;
 		 this.employeeID=employeeID;
 		 this.rtm=rtm;
@@ -540,6 +566,7 @@ public class ATRDatabase {
 		 this.poIn=poIn;
 		 this.fcstRisk=fcstRisk;
 		 this.manualRev=manualRev;
+		 this.multiyearQuote=multiyearQuote;
 		 this.lostReason=lostReason;
 		 this.lostRisk=lostRisk;
 		 this.invalidReason=invalidReason;
@@ -585,6 +612,7 @@ public class ATRDatabase {
 	 * UserDatabase
 	 */
 	public ATRDatabase(){
+		 allData= new ArrayList<String>();
 		 trad= new ArrayList<String>();
 		 wwRegion= new ArrayList<String>();
 		 region= new ArrayList<String>();
@@ -596,7 +624,13 @@ public class ATRDatabase {
 		 soldToAMID3ID= new ArrayList<String>();
 		 soldToAMID3Name= new ArrayList<String>();
 		 soldToAMID2ID= new ArrayList<String>();
-		 soldToaMID2Name= new ArrayList<String>();
+		 soldToAMID2Name= new ArrayList<String>();
+		 shipToAMID4ID= new ArrayList<String>();
+		 shipToAMID4Name= new ArrayList<String>();
+		 shipToAMID3ID= new ArrayList<String>();
+		 shipToAMID3Name= new ArrayList<String>();
+		 shipToAMID2ID= new ArrayList<String>();
+		 shipToAMID2Name= new ArrayList<String>();
 		 shipToID= new ArrayList<String>();
 		 shipToName=new ArrayList<String>();
 		 swstPartyEng= new ArrayList<String>();
@@ -661,7 +695,7 @@ public class ATRDatabase {
 		 quarterYear= new ArrayList<String>();
 		 halfYear= new ArrayList<String>();
 		 cleanSoldToAmid2ID= new ArrayList<String>();
-		 cleanSoldToAmid2Name= new ArrayList<String>();
+		 cleansoldToAMID2Name= new ArrayList<String>();
 		 salesRep= new ArrayList<String>();
 		 employeeID= new ArrayList<String>();
 		 rtm= new ArrayList<String>();
@@ -702,6 +736,7 @@ public class ATRDatabase {
 		 fcstStatus= new ArrayList<String>();
 		 poIn= new ArrayList<String>();
 		 fcstRisk= new ArrayList<String>();
+		 multiyearQuote =new ArrayList<String>();
 		 manualRev= new ArrayList<String>();
 		 lostReason= new ArrayList<String>();
 		 lostRisk= new ArrayList<String>();
@@ -755,7 +790,8 @@ public class ATRDatabase {
 	public void setData(String dataFile, String userSheet, Object... opParams) throws Exception{
 		String[][] testData = DatabaseResource.getDataFromSource(dataFile,userSheet,opParams);
 		info("dataFile path:"+dataFile);
-		for(int i = 0; i<testData.length; i++)
+		info("testData.length:"+String.valueOf(testData.length));
+		for(int i = 1; i<testData.length; i++)
 		{	
 			info("i:"+i);
 			trad.add(testData[i][0]);
@@ -769,152 +805,188 @@ public class ATRDatabase {
 			soldToAMID3ID.add(testData[i][8]);
 			soldToAMID3Name.add(testData[i][9]);
 			soldToAMID2ID.add(testData[i][10]);
-			soldToaMID2Name.add(testData[i][11]);
-			shipToID.add(testData[i][12]);
-			shipToName.add(testData[i][13]);
-			swstPartyEng.add(testData[i][14]);
-			swstPartyStreet.add(testData[i][15]);
-			swstPartyAddr2.add(testData[i][16]);
-			swstPartyAddr3.add(testData[i][17]);
-			swstPartyAddr4.add(testData[i][18]);
-			swstPartyCountry.add(testData[i][19]);
-			swstPartyRegion.add(testData[i][20]);
-			swstPartyPostalCode.add(testData[i][21]);
-			dateEffective.add(testData[i][22]);
-			dateExpire.add(testData[i][23]);
-			duration.add(testData[i][24]);
-			hdrLifecyleStatus.add(testData[i][25]);
-			poEndDt.add(testData[i][26]);
-			renewalDt.add(testData[i][27]);
-			said.add(testData[i][28]);
-			groupContractNb.add(testData[i][29]);
-			supportGroupID.add(testData[i][30]);
-			ampLink.add(testData[i][31]);
-			ampID.add(testData[i][32]);
-			documentType.add(testData[i][33]);
-			funcLoc.add(testData[i][34]);
-			pl.add(testData[i][35]);
-			cancRsn.add(testData[i][36]);
-			cancRsnDecs.add(testData[i][37]);
-			upfrontOrderNb.add(testData[i][38]);
-			extendedCustPoNbr.add(testData[i][39]);
-			userStatus.add(testData[i][40]);
-			salesMetricCodeHd.add(testData[i][41]);
-			cstm.add(testData[i][42]);
-			ela.add(testData[i][43]);
-			globalCurrency.add(testData[i][44]);
-			docCurrency.add(testData[i][45]);
-			spSiteID.add(testData[i][46]);
-			soldToPartyName.add(testData[i][47]);
-			spStreet.add(testData[i][48]);
-			spCity.add(testData[i][49]);
-			spState.add(testData[i][50]);
-			spPostalCode.add(testData[i][51]);
-			spTelephone.add(testData[i][52]);
-			custBillToContract.add(testData[i][53]);
-			custOrderContract.add(testData[i][54]);
-			custInvoiceContract.add(testData[i][55]);
-			nextDocumentNbr.add(testData[i][56]);
-			previousDocumentNbr.add(testData[i][57]);
-			excl.add(testData[i][58]);
-			texcl.add(testData[i][59]);
-			distributor.add(testData[i][60]);
-			reseller.add(testData[i][61]);
-			businessUnit.add(testData[i][62]);
-			billingCycle.add(testData[i][63]);
-			upfrontOrRenewal.add(testData[i][64]);
-			anniversaryOrRenewal.add(testData[i][65]);
-			anniversaryDate.add(testData[i][66]);
-			channelYOrN.add(testData[i][67]);
-			channelType.add(testData[i][68]);
-			fiscalMonth.add(testData[i][69]);
-			fiscalQuarter.add(testData[i][70]);
-			fiscalYear.add(testData[i][71]);
-			fiscalHalf.add(testData[i][72]);
-			quarterYear.add(testData[i][73]);
-			halfYear.add(testData[i][74]);
-			cleanSoldToAmid2ID.add(testData[i][75]);
-			cleanSoldToAmid2Name.add(testData[i][76]);
-			salesRep.add(testData[i][77]);
-			employeeID.add(testData[i][78]);
-			rtm.add(testData[i][79]);
-			segment.add(testData[i][80]);
-			subSegment.add(testData[i][81]);
-			cleanShipToAmid2ID.add(testData[i][82]);
-			cleanShipToAmid2Name.add(testData[i][83]);
-			supportLevel.add(testData[i][84]);
-			swOrTsMixed.add(testData[i][85]);
-			hardwareShipToInfoEnglish.add(testData[i][86]);
-			hardwareShipToInfoNonEnglish.add(testData[i][87]);
-			soldToNameNonEnglish.add(testData[i][88]);
-			atrFx.add(testData[i][89]);
-			atrValueLCLFX.add(testData[i][90]);
-			atrValueUSD.add(testData[i][91]);
-			eolValueToRemoveLCL.add(testData[i][92]);
-			eolValueToRemoveUSD.add(testData[i][93]);
-			finalATRValueLCLFX.add(testData[i][94]);
-			finalATRValueUSD.add(testData[i][95]);
-			validORInvalid.add(testData[i][96]);
-			validReason.add(testData[i][97]);
-			opptID.add(testData[i][98]);
-			atrType.add(testData[i][99]);
-			newFuncLoc.add(testData[i][100]);
-			quoteNumber.add(testData[i][101]);
-			quoteSupportLevel.add(testData[i][102]);
-			quoteStartDate.add(testData[i][103]);
-			quoteEndDate.add(testData[i][104]);
-			quotePrepaid.add(testData[i][105]);
-			rtsPlusPenaltyFeeLCLFX.add(testData[i][106]);
-			foundationTotalLCLFX.add(testData[i][107]);
-			totalQuoteLCLFX.add(testData[i][108]);
-			totalFCSTLCLFX.add(testData[i][109]);
-			quoteCurrency.add(testData[i][110]);
-			quoteStatus.add(testData[i][111]);
-			renewalStatus.add(testData[i][112]);
-			closeDate.add(testData[i][113]);
-			fcstStatus.add(testData[i][114]);
-			poIn.add(testData[i][115]);
-			fcstRisk.add(testData[i][116]);
-			manualRev.add(testData[i][117]);
-			lostReason.add(testData[i][118]);
-			lostRisk.add(testData[i][119]);
-			invalidReason.add(testData[i][120]);
-			comments.add(testData[i][121]);
-			underforecastOrUpsell.add(testData[i][122]);
-			underforecastOrUpsellReason.add(testData[i][123]);
-			rtsPlusPenaltyFeeUSD.add(testData[i][124]);
-			foundationUSD.add(testData[i][125]);
-			totalContractValueUSD.add(testData[i][126]);
-			totalFCSTValueUSD.add(testData[i][127]);
-			annualisedFoundationLCLFX.add(testData[i][128]);
-			annualisedFoundationUSD.add(testData[i][129]);
-			currentFX.add(testData[i][130]);
-			overdueCheck.add(testData[i][131]);
-			closeDateCalculated.add(testData[i][132]);
-			renewalStatusCalculated.add(testData[i][133]);
-			validForCQ.add(testData[i][134]);
-			totalCQRevsUSD.add(testData[i][135]);
-			month1CQRevsUSD.add(testData[i][136]);
-			month2CQRevsUSD.add(testData[i][137]);
-			month3CQRevsUSD.add(testData[i][138]);
-			selectableRevenueCalcUSD.add(testData[i][139]);
-			salesOrderIdentifier.add(testData[i][140]);
-			legacySalesOrderIdentifier.add(testData[i][141]);
-			documentCurrencyCode.add(testData[i][142]);
-			salesOrderIdentifierSL.add(testData[i][143]);
-			customerPurchaseOrderIdentifier.add(testData[i][144]);
-			fcstDoc.add(testData[i][145]);
-			modifiedBy.add(testData[i][146]);
-			modifiedDate.add(testData[i][147]);
-			camName.add(testData[i][148]);
-			camEmployeeID.add(testData[i][149]);
-			camType.add(testData[i][150]);
-			camRisk.add(testData[i][151]);
-			camComments.add(testData[i][152]);
-			flexcareCODE.add(testData[i][153]);
-			flexcareYN.add(testData[i][154]);
-			onTimeRR.add(testData[i][155]);
-			campaignName.add(testData[i][156]);
+			soldToAMID2Name.add(testData[i][11]);
+			shipToAMID4ID.add(testData[i][12]);
+			shipToAMID4Name.add(testData[i][13]);
+			shipToAMID2ID.add(testData[i][14]);
+			shipToAMID2Name.add(testData[i][15]);
+			shipToID.add(testData[i][16]);
+			shipToName.add(testData[i][17]);
+			swstPartyEng.add(testData[i][18]);
+			swstPartyStreet.add(testData[i][19]);
+			swstPartyAddr2.add(testData[i][20]);
+			swstPartyAddr3.add(testData[i][21]);
+			swstPartyAddr4.add(testData[i][22]);
+			swstPartyCountry.add(testData[i][23]);
+			swstPartyRegion.add(testData[i][24]);
+			swstPartyPostalCode.add(testData[i][25]);
+			dateEffective.add(testData[i][26]);
+			dateExpire.add(testData[i][27]);
+			duration.add(testData[i][28]);
+			hdrLifecyleStatus.add(testData[i][29]);
+			poEndDt.add(testData[i][30]);
+			renewalDt.add(testData[i][31]);
+			said.add(testData[i][32]);
+			groupContractNb.add(testData[i][33]);
+			supportGroupID.add(testData[i][34]);
+			ampLink.add(testData[i][35]);
+			ampID.add(testData[i][36]);
+			documentType.add(testData[i][37]);
+			funcLoc.add(testData[i][38]);
+			pl.add(testData[i][39]);
+			cancRsn.add(testData[i][40]);
+			cancRsnDecs.add(testData[i][41]);
+			upfrontOrderNb.add(testData[i][42]);
+			extendedCustPoNbr.add(testData[i][43]);
+			userStatus.add(testData[i][44]);
+			salesMetricCodeHd.add(testData[i][45]);
+			cstm.add(testData[i][46]);
+			ela.add(testData[i][47]);
+			globalCurrency.add(testData[i][48]);
+			docCurrency.add(testData[i][49]);
+			spSiteID.add(testData[i][50]);
+			soldToPartyName.add(testData[i][51]);
+			spStreet.add(testData[i][52]);
+			spCity.add(testData[i][53]);
+			spState.add(testData[i][54]);
+			spPostalCode.add(testData[i][55]);
+			spTelephone.add(testData[i][56]);
+			custBillToContract.add(testData[i][57]);
+			custOrderContract.add(testData[i][58]);
+			custInvoiceContract.add(testData[i][59]);
+			nextDocumentNbr.add(testData[i][60]);
+			previousDocumentNbr.add(testData[i][61]);
+			excl.add(testData[i][62]);
+			texcl.add(testData[i][63]);
+			distributor.add(testData[i][64]);
+			reseller.add(testData[i][65]);
+			businessUnit.add(testData[i][66]);
+			billingCycle.add(testData[i][67]);
+			upfrontOrRenewal.add(testData[i][68]);
+			anniversaryOrRenewal.add(testData[i][69]);
+			anniversaryDate.add(testData[i][70]);
+			channelYOrN.add(testData[i][71]);
+			channelType.add(testData[i][72]);
+			fiscalMonth.add(testData[i][73]);
+			fiscalQuarter.add(testData[i][74]);
+			fiscalYear.add(testData[i][75]);
+			fiscalHalf.add(testData[i][76]);
+			quarterYear.add(testData[i][77]);
+			halfYear.add(testData[i][78]);
+			cleanSoldToAmid2ID.add(testData[i][79]);
+			cleansoldToAMID2Name.add(testData[i][80]);
+			salesRep.add(testData[i][81]);
+			employeeID.add(testData[i][82]);
+			rtm.add(testData[i][83]);
+			segment.add(testData[i][84]);
+			subSegment.add(testData[i][85]);
+			cleanShipToAmid2ID.add(testData[i][86]);
+			cleanShipToAmid2Name.add(testData[i][87]);
+			supportLevel.add(testData[i][88]);
+			swOrTsMixed.add(testData[i][89]);
+			hardwareShipToInfoEnglish.add(testData[i][90]);
+			hardwareShipToInfoNonEnglish.add(testData[i][91]);
+			soldToNameNonEnglish.add(testData[i][92]);
+			atrFx.add(testData[i][93]);
+			atrValueLCLFX.add(testData[i][94]);
+			atrValueUSD.add(testData[i][95]);
+			eolValueToRemoveLCL.add(testData[i][96]);
+			eolValueToRemoveUSD.add(testData[i][97]);
+			finalATRValueLCLFX.add(testData[i][98]);
+			finalATRValueUSD.add(testData[i][99]);
+			validORInvalid.add(testData[i][100]);
+			validReason.add(testData[i][101]);
+			opptID.add(testData[i][102]);
+			atrType.add(testData[i][103]);
+			newFuncLoc.add(testData[i][104]);
+			quoteNumber.add(testData[i][105]);
+			quoteSupportLevel.add(testData[i][106]);
+			quoteStartDate.add(testData[i][107]);
+			quoteEndDate.add(testData[i][108]);
+			quotePrepaid.add(testData[i][109]);
+			rtsPlusPenaltyFeeLCLFX.add(testData[i][110]);
+			foundationTotalLCLFX.add(testData[i][111]);
+			totalQuoteLCLFX.add(testData[i][112]);
+			totalFCSTLCLFX.add(testData[i][113]);
+			quoteCurrency.add(testData[i][114]);
+			quoteStatus.add(testData[i][115]);
+			renewalStatus.add(testData[i][116]);
+			closeDate.add(testData[i][117]);
+			fcstStatus.add(testData[i][118]);
+			poIn.add(testData[i][119]);
+			fcstRisk.add(testData[i][120]);
+			multiyearQuote.add(testData[i][121]);
+			manualRev.add(testData[i][122]);
+			lostReason.add(testData[i][123]);
+			lostRisk.add(testData[i][124]);
+			invalidReason.add(testData[i][125]);
+			comments.add(testData[i][126]);
+			underforecastOrUpsell.add(testData[i][127]);
+			underforecastOrUpsellReason.add(testData[i][128]);
+			rtsPlusPenaltyFeeUSD.add(testData[i][129]);
+			foundationUSD.add(testData[i][130]);
+			totalContractValueUSD.add(testData[i][131]);
+			totalFCSTValueUSD.add(testData[i][132]);
+			annualisedFoundationLCLFX.add(testData[i][133]);
+			annualisedFoundationUSD.add(testData[i][134]);
+			currentFX.add(testData[i][135]);
+			overdueCheck.add(testData[i][136]);
+			closeDateCalculated.add(testData[i][137]);
+			renewalStatusCalculated.add(testData[i][138]);
+			validForCQ.add(testData[i][139]);
+			totalCQRevsUSD.add(testData[i][140]);
+			month1CQRevsUSD.add(testData[i][141]);
+			month2CQRevsUSD.add(testData[i][142]);
+			month3CQRevsUSD.add(testData[i][143]);
+			selectableRevenueCalcUSD.add(testData[i][144]);
+			salesOrderIdentifier.add(testData[i][145]);
+			legacySalesOrderIdentifier.add(testData[i][146]);
+			documentCurrencyCode.add(testData[i][147]);
+			salesOrderIdentifierSL.add(testData[i][148]);
+			customerPurchaseOrderIdentifier.add(testData[i][149]);
+			fcstDoc.add(testData[i][150]);
+			modifiedBy.add(testData[i][151]);
+			modifiedDate.add(testData[i][152]);
+			camName.add(testData[i][153]);
+			camEmployeeID.add(testData[i][154]);
+			camType.add(testData[i][155]);
+			camRisk.add(testData[i][156]);
+			camComments.add(testData[i][157]);
+			flexcareCODE.add(testData[i][158]);
+			flexcareYN.add(testData[i][159]);
+			onTimeRR.add(testData[i][160]);
+			campaignName.add(testData[i][161]);
+			for(int j=0;j<161;j++){
+				String el=testData[i][j];
+				allData.add(el);
+			}
+			
 		}
+			info("allData:"+allData);
+	}
+	/**
+	 * Get all data of all columns in View detail list
+	 * @return list
+	 */
+	public List<String> getViewDetailList(){
+		List<Integer>Col=new ArrayList<Integer>();
+		for(int i=0;i<6;i++)Col.add(i);
+		Col.add(7);
+		Col.add(9);
+		Col.add(11);
+		Col.add(13);
+		Col.add(15);
+		Col.add(17);
+		Col.add(27);
+		Col.add(26);
+		for(int i=28;i<52;i++)Col.add(i);
+		for(int i=57;i<90;i++)Col.add(i);
+		for(int i=92;i<102;i++)Col.add(i);
+		List<String> list1=new ArrayList<String>();
+		for(int i=0;i<Col.size();i++){
+			String el=allData.get(Col.get(i));
+			list1.add(el);
+		}
+		return list1;
 	}
 }

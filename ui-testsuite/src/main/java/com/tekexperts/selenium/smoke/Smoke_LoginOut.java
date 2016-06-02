@@ -3,10 +3,10 @@ package com.tekexperts.selenium.smoke;
 import org.testng.annotations.Test;
 import static com.tekexperts.pipeline.common.TestLogger.info;
 
-public class Smoke_LoginOut extends TestConfig_Smoke{
+public class Smoke_LoginOut extends TestConfig_LoginOut{
 	/**
 	 * Test case ID: VAN-1726
-	 * Test case name: Login unsuccessfully with invalid data
+	 * Test case name: Login successfully with valid data
 	 * Precondition: User A has an account in the system
 	 * Test details:
 	 * Test Step 1: Open the link http://10.12.14.205:8089/

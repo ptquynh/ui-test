@@ -16,7 +16,13 @@ public class ManageLogInOut extends PipelineBase {
 	//Sign in button
 	public By ELEMENT_LOGIN_SIGNIN_BTN=By.xpath(".//*[@id='btnLogin']");
 	//Forgot my password link
-	public By ELEMENT_LOGIN_FORGOTPASS_LINK=By.xpath("");
+	public By ELEMENT_LOGIN_FORGOTPASS_LINK=By.xpath(".//*[@id='frmLogin']//*[@href='/ForgotPassword']");
+	
+	//**********************FORGOT PASSWORD**************************\\
+	public By ELEMENT_FORGOTPASS_BACKTOSIGNIN=By.xpath(".//*[@id='form0']//a[@href='/Login']");
+	public By ELEMENT_FORGOTPASS_HPID_FIELD=By.xpath(".//*[@id='HPID']");
+	public By ELEMENT_FORGOTPASS_SUBMIT_BTN=By.xpath(".//*[@id='form0']//button");
+	public By ELEMENT_FORGOTPASS_SUCCESS_MESSAGE_RECOVERYPASS=By.xpath(".//*[@id='form0']//*[contains(@class,'alert-success')][contains(.,'Your new password has been sent to your email.')]");
 	
 	//*********LOGOUT**************\\
 	//Logout icon
@@ -72,7 +78,47 @@ public class ManageLogInOut extends PipelineBase {
 			
 		Utils.pause(3000);
 		if(verify)
-			waitForAndGetElement(ELEMENT_LOGIN_SIGNIN_BTN);
+			waitForAndGetElement(ELEMENT_LOGIN_SIGNIN_BTN,3000,1);
 		info("Logout sucessfully");
 	}
+   /**
+    * Open forgot password page
+    */
+   public void goToForgotPass(){
+	   info("Click on the link");
+	   click(ELEMENT_LOGIN_FORGOTPASS_LINK);
+	   info("Verify that Forgot pass page is shown");
+	   waitForAndGetElement(ELEMENT_FORGOTPASS_BACKTOSIGNIN,3000,1);
+   }
+   /**
+    * Back to Sign in page from forgot pass page
+    */
+   public void goToSignIn(){
+	   info("Click on Back To Sign In link");
+	   click(ELEMENT_FORGOTPASS_BACKTOSIGNIN);
+	   info("Verify that sign in page is shown");
+	   waitForAndGetElement(ELEMENT_LOGIN_SIGNIN_BTN,3000,1);
+   }
+   
+   public void forgotPass(String hpID){
+	   info("Type a ID to the field");
+	   type(ELEMENT_FORGOTPASS_HPID_FIELD,hpID,true);
+	   info("Click on Submit button");
+	   click(ELEMENT_FORGOTPASS_SUBMIT_BTN);
+   }
+   /**
+    * Verify that success message is shown 
+    */
+   public void verifyRecoveryPassSucc(){
+	   info("Verify that recovery password is success with success mess");
+	   waitForAndGetElement(ELEMENT_FORGOTPASS_SUCCESS_MESSAGE_RECOVERYPASS,2000,1);
+   }
+   /**
+    * Select remember checkbox
+    */
+   public void remember(){
+	   info("Click on Remember checkbox");
+	   check(ELEMENT_LOGIN_REMEMBERMYEMAIL_CHECKBOX,2);
+	   Utils.pause(2000);
+   }
 }

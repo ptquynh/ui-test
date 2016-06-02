@@ -34,7 +34,10 @@ public class Configuration {
 	protected String messageFilePath;
 	protected String assignRuleFilePath;
 	protected String rsrEmployFilePath;
+	protected String regionDataFilePath;
+	protected String regionParentDataFilePath;
 	protected String ATRFilePath;
+	protected String roleFilePath;
 
 	public final int ACTION_REPEAT = 5;
 	public static boolean firstTimeLogin = false;
@@ -62,7 +65,7 @@ public class Configuration {
 	
 	/*========Default System Property=============*/
 	public final String DEFAULT_NATIVE_EVENT = "true";
-	public final String DEFAULT_BASEURL="http://10.12.14.205:8089";
+	public final String DEFAULT_BASEURL="http://10.12.14.205:8089/";
 	public final String DEFAULT_BROWSER="chrome";//iexplorer, firefox, chrome
 	public final String DEFAULT_SERVER="win"; //win, ubuntu
 
@@ -76,7 +79,11 @@ public class Configuration {
 	public final String DEFAULT_MESSAGEFILEURL="DataDriven/" + "message.xls";
 	public final String DEFAULT_ASSIGNRULEURL = "DataDriven/" + "assignmentRules.xls";
 	public final String DEFAULT_RSREMPLOYEESURL ="DataDriven/" + "RSREmployees.xls";
-	public static String PATH_TESTDATA="TestData/";
+	public final String DEFAULT_ROLEFILEURL="DataDriven/"+"roles.xls";
+	public final String DEFAULT_REGIONFILEURL="DataDriven/"+"regions.xls";
+	public final String DEFAULT_REGIONPARENTFILEURL="DataDriven/"+"regionParent.xls";
+	public static String PATH_TESTDATA=null;
+	public static String PATH_DOWNLOADFOLER=null;
 	
 	
 	/**
@@ -95,6 +102,10 @@ public class Configuration {
 		assignRuleFilePath = System.getProperty("assignRuleFilePath");
 		rsrEmployFilePath = System.getProperty("rsrEmployFilePath");
 		ATRFilePath = System.getProperty("ATRFilePath");
+		roleFilePath = System.getProperty("roleFilePath");
+		regionDataFilePath = System.getProperty("regionDataFilePath");
+		regionParentDataFilePath = System.getProperty("regionParentDataFilePath");
+		PATH_TESTDATA =System.getProperty("PATH_TESTDATA");
 		
 		if (nativeEvent==null) nativeEvent = DEFAULT_NATIVE_EVENT;
 		if (browser==null) browser = DEFAULT_BROWSER;
@@ -110,14 +121,20 @@ public class Configuration {
 		if (messageFilePath==null) messageFilePath=DEFAULT_MESSAGEFILEURL;
 		if (assignRuleFilePath==null)assignRuleFilePath = DEFAULT_ASSIGNRULEURL;
 		if (rsrEmployFilePath==null) rsrEmployFilePath = DEFAULT_RSREMPLOYEESURL;
+		if (roleFilePath==null) roleFilePath=DEFAULT_ROLEFILEURL;
+		if (regionDataFilePath==null)regionDataFilePath=DEFAULT_REGIONFILEURL;
+		if (regionParentDataFilePath==null) regionParentDataFilePath = DEFAULT_REGIONPARENTFILEURL;
 		
 		userDataFilePath = getAbsoluteFilePath(userDataFilePath);
 		attachmentFilePath = getAbsoluteFilePath(attachmentFilePath);
 		messageFilePath = getAbsoluteFilePath(messageFilePath);
 		assignRuleFilePath = getAbsoluteFilePath(assignRuleFilePath);
 		rsrEmployFilePath = getAbsoluteFilePath(rsrEmployFilePath);
-		PATH_TESTDATA = getAbsoluteFilePath(PATH_TESTDATA);
+		PATH_TESTDATA = getAbsoluteFileTestDataPath();
 		ATRFilePath = getAbsoluteFilePath(ATRFilePath);
+		roleFilePath = getAbsoluteFilePath(roleFilePath);
+		regionDataFilePath = getAbsoluteFilePath(regionDataFilePath);
+		regionParentDataFilePath = getAbsoluteFilePath(regionParentDataFilePath);
 	}
 	
 	/**
@@ -301,8 +318,19 @@ public class Configuration {
 	public String getAbsoluteFilePath(String relativeFilePath){
 		String fs = File.separator;
 		String curDir = System.getProperty("user.dir");
-		String absolutePath = curDir + relativeFilePath;
+		String absolutePath =curDir+relativeFilePath;
 		absolutePath=absolutePath.replace("/", fs).replace("\\", fs);;
 		return absolutePath;
+	}
+	/**
+	 * Get File path
+	 * @param fileName
+	 * @return path
+	 */
+	public String getAbsoluteFileTestDataPath(){
+		String fs = File.separator;
+		String curDir = System.getProperty("user.dir")+"/src/main/resources/TestData/";
+		curDir=curDir.replace("/", fs).replace("\\", fs);;
+		return curDir;
 	}
 }

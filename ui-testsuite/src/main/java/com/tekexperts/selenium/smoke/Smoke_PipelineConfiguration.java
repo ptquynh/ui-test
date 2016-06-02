@@ -105,6 +105,12 @@ public class Smoke_PipelineConfiguration extends TestConfig_Smoke{
 		navMenu.goToPipelineConfigurattion();
 		info("Go to Snapshot page");
 		pipeConfig.goToSnapshot();
+		int i=0;
+		while(snapshot.isHasSnapshotRequired()){
+		  snapshot.delete("Required");
+		  if(i>5)break;
+		  i++;	
+		}
 		info("Add a new snapshot");
 		snapshot.add(name, date);
 		info("Verify that the snapshot is saved successfully");

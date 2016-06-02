@@ -67,9 +67,9 @@ public class UserInfoDatabase {
 	 * @param opParams
 	 * @throws Exception
 	 */
-	public void setUserInfoData(String userDataFile, String userSheet, Object... opParams) throws Exception{
+	public void setData(String userDataFile, String userSheet, Object... opParams) throws Exception{
 		String[][] testData = DatabaseResource.getDataFromSource(userDataFile,userSheet,opParams);
-		for(int i = 0; i<testData.length-1; i++)
+		for(int i = 1; i<testData.length-1; i++)
 		{	
 			type.add(Integer.valueOf(testData[i][0]));
 			userName.add(testData[i][1]);

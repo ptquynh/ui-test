@@ -1,0 +1,28 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Smoke Testing" verbose="1" preserve-order="true">
+	<test name="smoke-testing" enabled="true">
+		<groups>
+			<run>
+				<exclude name="pending" />
+			</run>
+		</groups>
+		<classes>
+			<class name="com.tekexperts.selenium.func.administration.TestConfig_Admin" />
+			<class name="com.tekexperts.selenium.func.administration.Func_Assignment_Rule" />
+			<class name="com.tekexperts.selenium.func.administration.Func_ATR" />
+			<class name="com.tekexperts.selenium.func.administration.Func_Organization_User" />
+			<class name="com.tekexperts.selenium.func.others.TestConfig_Login" />
+			<class name="com.tekexperts.selenium.func.others.Func_Login" />
+			<class name="com.tekexperts.selenium.func.others.TestConfig1" />
+			<class name="com.tekexperts.selenium.func.others.Func_NavigationBar" />
+			<class name="com.tekexperts.selenium.func.others.Func_User_Profile" />
+			<class name="com.tekexperts.selenium.func.others.Func_Users" />
+			<class name="com.tekexperts.selenium.func.pipelineManagement.TestConfig_All" />
+			<class name="com.tekexperts.selenium.func.pipelineManagement.Func_Unassign_Contracts" />
+			<class name="com.tekexperts.selenium.func.pipelineManagement.Func_Pipeline_List" />
+		</classes>
+	</test>
+	<listeners>
+		<listener class-name="com.tekexperts.pipeline.common.TestReportListener" />
+	</listeners>
+</suite>

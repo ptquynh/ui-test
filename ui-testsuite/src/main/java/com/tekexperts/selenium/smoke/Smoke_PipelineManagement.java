@@ -4,7 +4,9 @@ import static com.tekexperts.pipeline.common.TestLogger.info;
 
 import org.testng.annotations.Test;
 
+import com.tekexperts.pipeline.common.Utils;
 import com.tekexperts.pipeline.common.readData.ATRDatabase;
+import com.tekexperts.pipeline.pipelineManagement.operation.UnassignedContracts.UnassignedCol;
 
 public class Smoke_PipelineManagement extends TestConfig_Smoke{
 	/**
@@ -32,13 +34,16 @@ public class Smoke_PipelineManagement extends TestConfig_Smoke{
 	@Test
 	public void VAN1744_CheckUnassignedContracts() throws Exception{
 		String file = fData.getAttachFileByArrayTypeRandom(66);
-		String fileRead = fData.getAttachFileByArrayTypeRandom(63);
+		//String fileRead = fData.getAttachFileByArrayTypeRandom(63);
 		String name = rsrEmployData.getNameByArrayTypeRandom(1);
+		
 		//Get data of ATR from excel
-		ATRFilePath = PATH_TESTDATA+fileRead;
+		//ATRFilePath=null;
+		ATRFilePath = PATH_TESTDATA+file;
 		ATRDatabase atrData= new ATRDatabase();
 		atrData.setData(ATRFilePath,defaultSheet,isUseFile);
-		String expDocNbr=atrData.expDocNb.get(0);
+		String expDocNbr= getLongRandomNumber();
+		atrUpData.update(ATRFilePath, defaultSheet,1,5,expDocNbr, isUseFile);
 		info("expDocNbr:"+expDocNbr);
 		info("Name:"+name);
 		info("Go to Operation page");
@@ -46,6 +51,8 @@ public class Smoke_PipelineManagement extends TestConfig_Smoke{
 		info("Go to Unassigned Contracts page");
 		operaHome.goToUnassignedATR();
 		int i=0;
+		Utils.pause(3000);
+		unassignATR.searchBy(UnassignedCol.ExpDocNbr,expDocNbr);
 		while(!unassignATR.isEmptyList()){
 			info("Go to Data Import");
 			navMenu.goToDataImport();
@@ -60,6 +67,7 @@ public class Smoke_PipelineManagement extends TestConfig_Smoke{
 			if(i>5)break;
 			i++;
 		}
+		unassignATR.searchBy(UnassignedCol.ExpDocNbr,expDocNbr);
 		info("Select all contracts ");
 		unassignATR.selectAllCheckbox();
 		info("Open Assign RSR contract");
@@ -104,19 +112,19 @@ public class Smoke_PipelineManagement extends TestConfig_Smoke{
 		info("Go to Fallout Summaries page");
 		operaHome.goToFalloutOrders();
 		info("FallOut Summaries page is shown");
-		waitForAndGetElement(falloutSummaries.ELEMENT_FALLOUT_FALLOUTSUMMARIES_TITLE,2000,1);
+		waitForAndGetElement(falloutHome.ELEMENT_FALLOUT_FALLOUTSUMMARIES_TITLE,2000,1);
 		info("Open Unassigned Order tab");
-		falloutSummaries.goToUnassignedOrdersTab();
+		falloutHome.goToUnassignedOrdersTab();
 		info("Open No Previous Doc");
-		falloutSummaries.goToNoPreviousDocTab();
+		falloutHome.goToNoPreviousDocTab();
 		info("Open Duplicated Previous Doc tab");
-		falloutSummaries.goToDuplicatedPreviousDocTab();
+		falloutHome.goToDuplicatedPreviousDocTab();
 		info("Opem Negative Orders tab");
-		falloutSummaries.goToNegativeOrdersTab();
+		falloutHome.goToNegativeOrdersTab();
 		info("Open Multiple Close Dates tab");
-		falloutSummaries.goToMultipleCloseDatesTab();
+		falloutHome.goToMultipleCloseDatesTab();
 		info("Open Not Reconciled tab");
-		falloutSummaries.goToNotReconciledTab();
+		falloutHome.goToNotReconciledTab();
 	}
 	/**
 	 * Test case ID: VAN-1746

@@ -1,0 +1,22 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Smoke Testing" verbose="1" preserve-order="true">
+	<test name="smoke-testing" enabled="true">
+		<groups>
+			<run>
+				<exclude name="pending" />
+			</run>
+		</groups>
+		<classes>
+			<class name="com.tekexperts.selenium.func.others.TestConfig_Login" />
+			<class name="com.tekexperts.selenium.func.others.Func_Login" />
+			<class name="com.tekexperts.selenium.func.others.TestConfig" />
+			<class name="com.tekexperts.selenium.func.others.Func_NavigationBar" />
+			<class name="com.tekexperts.selenium.func.others.Func_User_Profile" />
+			<class name="com.tekexperts.selenium.func.others.Func_Users" />
+			<class name="com.tekexperts.selenium.func.others.Func_Login" />
+		</classes>
+	</test>
+	<listeners>
+		<listener class-name="com.tekexperts.pipeline.common.TestReportListener" />
+	</listeners>
+</suite>

@@ -1,6 +1,7 @@
 package com.tekexperts.pipeline.pipelineManagement.operation;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
 import static com.tekexperts.pipeline.common.TestLogger.info;
@@ -20,6 +21,9 @@ public class UnassignedContracts extends PipelineBase{
 	
 	//Assign button
 	public By ELEMENT_UNASSIGNEDCONTRACT_ASSIGN_BTN=By.xpath(".//*[@id='btnUpdateForSelectedItem']");
+	
+	//************************FILTER****************************\\
+	public By ELEMENT_UNASSIGNEDCONTRACT_EXPDOCNBR_FILTER=By.xpath(".//*[@id='UnassignRSR_DXFREditorcol5_I']");
 	
 	public UnassignedContracts(WebDriver dr){
 		driver = dr;
@@ -60,6 +64,56 @@ public class UnassignedContracts extends PipelineBase{
 		info("Verify that the contract is not available in the table");
 		waitForElementNotPresent(ELEMENT_UNASSIGNEDCONTRACT_INFO.replace("$value", info),2000,1);
 		info("The contract is not availabled in the table");
+	}
+	
+	public enum UnassignedCol{
+		WWRegion,Region,Sub_Region,ExpDocNbr,Duration,Previous_Doc,AnniversaryORRenewal,SaleRep,RTM,SubSegment,CleanShipToAmid2Name,
+		SupportLevel,FinalATR,ModifiedBy,ModifiedDate;
+	}
+	
+	/**
+	 * Filter contract
+	 * @param col
+	 * @param searchText
+	 */
+	public void searchBy(UnassignedCol col,String searchText){
+		switch(col){
+		case WWRegion:
+			break;
+		case Region:
+			break;
+		case Sub_Region:
+			break;
+		case ExpDocNbr:
+			info("Search by Exp Doc nbr");
+			type(ELEMENT_UNASSIGNEDCONTRACT_EXPDOCNBR_FILTER,searchText,true);
+			waitForAndGetElement(ELEMENT_UNASSIGNEDCONTRACT_EXPDOCNBR_FILTER).sendKeys(Keys.ENTER);
+			break;
+		case Previous_Doc:
+			break;
+		case AnniversaryORRenewal:
+			break;
+		case RTM:
+			break;
+		case SubSegment:
+			break;
+		case CleanShipToAmid2Name:
+			break;
+		case SaleRep:
+			break;
+		case SupportLevel:
+			break;
+		case FinalATR:
+			break;
+		case ModifiedBy:
+			break;
+		case ModifiedDate:
+			break;
+		default:
+			info("Not found the column in the table");
+			break;
+		}
+		Utils.pause(10000);
 	}
 	
 }

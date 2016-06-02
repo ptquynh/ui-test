@@ -2,10 +2,12 @@ package com.tekexperts.pipeline.pipelineManagement.operation;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+
 import static com.tekexperts.pipeline.common.TestLogger.info;
+
 import com.tekexperts.pipeline.common.PipelineBase;
 
-public class FalloutSummaries extends PipelineBase{
+public class FalloutHome extends PipelineBase{
 
 	//Fallout summaries tab
 	public By ELEMENT_FALLOUT_FALLOUTSUMMARIES_TAB=By.xpath(".//*[@id='right-side']//*[@href='/OrphanOrder/Index']");
@@ -29,7 +31,13 @@ public class FalloutSummaries extends PipelineBase{
 	public By ELEMENT_FALLOUT_NOTRECONCILED_TAB=By.xpath(".//*[@id='right-side']//*[@href='/OrphanOrder/NotReconciled']");
 	public By ELEMENT_FALLOUT_NOTRECONCILED_TITLE=By.xpath(".//*[@id='right-side']//h1[contains(text(),'Not reconciled')]");
 	
-	public FalloutSummaries(WebDriver dr){
+	public String ELEMENT_FALLOUT_SUMMARIES_TYPE=".//*[contains(text(),'$label')]/..//*[text()='$netUSD']";
+	
+	//Footer
+	public String ELEMENT_FALLOUT_SUMMARIES_FOOTERROW=".//*[@id='gvSummary_DXFooterRow']//*[//*[contains(text(),'$number')]]";
+	
+	
+	public FalloutHome(WebDriver dr){
 		driver = dr;
 	}
 	/**
@@ -87,5 +95,25 @@ public class FalloutSummaries extends PipelineBase{
 		info("Open Not Reconciled tab");
 		click(ELEMENT_FALLOUT_NOTRECONCILED_TAB);
 		waitForAndGetElement(ELEMENT_FALLOUT_NOTRECONCILED_TITLE,2000,1);
+	}
+	/**
+	 * Verify that total of fallout summaries page
+	 * @param total
+	 */
+	public void verifyTotalFalloutSummaries(String total){
+		info("Verify total of fallout summaries");
+		waitForAndGetElement(ELEMENT_FALLOUT_SUMMARIES_FOOTERROW.replace("$number",total),2000,1);
+	}
+	
+	/**
+	 * Verify net usd of fallouts
+	 * @param label
+	 * @param netUSD
+	 */
+	public void verifyData(String label,String netUSD){
+		info("Verify that the content of order is shown in the list");
+		waitForAndGetElement(ELEMENT_FALLOUT_SUMMARIES_TYPE
+				.replace("$label",label)
+				.replace("$netUSD", netUSD), 3000,1);
 	}
 }

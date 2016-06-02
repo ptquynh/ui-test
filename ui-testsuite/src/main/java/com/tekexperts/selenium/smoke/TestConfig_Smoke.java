@@ -22,6 +22,7 @@ import com.tekexperts.pipeline.administration.pipelineConfiguration.Timeframe;
 import com.tekexperts.pipeline.common.ManageLogInOut;
 import com.tekexperts.pipeline.common.NavigationMenu;
 import com.tekexperts.pipeline.common.PipelineBase;
+import com.tekexperts.pipeline.common.readData.UpdateDatabase;
 import com.tekexperts.pipeline.common.readData.AssignmentRulesDatabase;
 import com.tekexperts.pipeline.common.readData.AttachmentFileDatabase;
 import com.tekexperts.pipeline.common.readData.MessageDatabase;
@@ -40,7 +41,7 @@ import com.tekexperts.pipeline.pipelineManagement.dashboard.RenewalRateDashboard
 import com.tekexperts.pipeline.pipelineManagement.dashboard.SummaryDashboard;
 import com.tekexperts.pipeline.pipelineManagement.operation.AssignRSR;
 import com.tekexperts.pipeline.pipelineManagement.operation.FalloutDuplicatePreviousDoc;
-import com.tekexperts.pipeline.pipelineManagement.operation.FalloutSummaries;
+import com.tekexperts.pipeline.pipelineManagement.operation.FalloutHome;
 import com.tekexperts.pipeline.pipelineManagement.operation.FalloutUnassignedOrders;
 import com.tekexperts.pipeline.pipelineManagement.operation.OperationHome;
 import com.tekexperts.pipeline.pipelineManagement.operation.UnassignedContracts;
@@ -90,7 +91,7 @@ public class TestConfig_Smoke extends PipelineBase {
 	UnassignedContracts unassignATR;
 	FalloutUnassignedOrders falloutUnassignOrder;
 	FalloutDuplicatePreviousDoc falloutDupPrev;
-	FalloutSummaries falloutSummaries;
+	FalloutHome falloutHome;
 	AssignRSR assignRSR;
 	Pipeline pipeList;
 	HistoricalData hisData;
@@ -100,6 +101,7 @@ public class TestConfig_Smoke extends PipelineBase {
 	MessageDatabase mesg;
 	RSREmployeesDatabase rsrEmployData;
 	AssignmentRulesDatabase assignData;
+	UpdateDatabase atrUpData;
 	
 	@BeforeMethod
 	public void setUpBeforeMethod() throws Exception{
@@ -147,7 +149,7 @@ public class TestConfig_Smoke extends PipelineBase {
 		unassignATR = new UnassignedContracts(driver);
 		falloutUnassignOrder= new FalloutUnassignedOrders(driver);
 		falloutDupPrev = new FalloutDuplicatePreviousDoc(driver);
-		falloutSummaries = new FalloutSummaries(driver);
+		falloutHome = new FalloutHome(driver);
 		dataImportHome = new DataImportHome(driver);
 		contract = new Contracts(driver);
 		assignRSR = new AssignRSR(driver);
@@ -156,7 +158,7 @@ public class TestConfig_Smoke extends PipelineBase {
 		
 		//Get attached file data from Excel
 		fData = new AttachmentFileDatabase();
-		fData.setAttachFileData(attachmentFilePath,defaultSheet,isUseFile);
+		fData.setData(attachmentFilePath,defaultSheet,isUseFile);
 		
 		//Get message from Excel
 		mesg = new MessageDatabase();
@@ -169,6 +171,8 @@ public class TestConfig_Smoke extends PipelineBase {
 		//Get employess name
 		rsrEmployData = new RSREmployeesDatabase();
 		rsrEmployData.setData(rsrEmployFilePath,defaultSheet,isUseFile);
+		
+		atrUpData= new UpdateDatabase();
 				
 		info("End setUpBeforeMethod");
 	}

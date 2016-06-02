@@ -8,18 +8,25 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.TimeZone;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.UnhandledAlertException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
@@ -43,8 +50,25 @@ public class PipelineBase extends Configuration{
 	public static String password="Test@123456";
 	public static String USER_ROOT_FULLNAME =null;
 	public static String USER_RANDOM_PASSWORD=null;
+	public static String USER_ROOT_EMAIL=null;
 	public static String EMAIL_TEST="qatekexperts@gmail.com";
 	public static String EMAIL_TEST_PASS="Test@123456";
+	public static int TOTAL_COLUMN_ATR = 160;
+	
+	//Gmail
+	public final String GMAIL_URL = "https://mail.google.com";
+	public final String ELEMENT_MAIL_SUBJECT = ".//span[contains(.,'${subject}')]";
+	public final By ELEMENT_GMAIL_INBOX = By.xpath("//a[contains(@title, 'Inbox')]");
+	public final By ELEMENT_MAIL_CONTENT = By.xpath("//*[contains(@class, 'adP adO')]/div");
+	public final By ELEMENT_GMAIL_USERNAME = By.id("Email");
+	public final By ELEMENT_GMAIL_NEXT_BTN=By.id("next");
+	public final By ELEMENT_GMAIL_PASS = By.id("Passwd");
+	public final By ELEMENT_GMAIL_SIGN_IN = By.id("signIn");
+	public final String ELEMENT_GMAIL_TITLE = "//*[@class='xS']//*[@class='xT']//*[contains(text(),'$title')]";
+	public final String ELEMENT_GMAIL_TO_FIELD = "//td/span[text()='to:']/../..//span[text()='${to}']";
+	public final By ELEMENT_GMAIL_SIGNIN_DIFFERENT_ACC = By.cssSelector(".gb_d.gbii");
+	public final By ELEMENT_GMAIL_ADD_ACCOUNT = By.linkText("Add account");
+	public final By ELEMENT_GMAIL_SIGN_IN_LINK = By.xpath("//a[@id='gmail-sign-in' and contains(text(),'Sign in')]");
 	
 	
 	/**
@@ -156,6 +180,27 @@ public class PipelineBase extends Configuration{
 			assert false: ("Timeout after " + timeout + "ms waiting for element present: " + locator);
 		info("cannot find element after " + timeout/1000 + "s.");
 		return null;
+	}
+	
+	public boolean scroll_Page(WebElement webelement, int scrollPoints)
+	{
+	    try
+	    {               
+	        Actions dragger = new Actions(driver);
+	        // drag downwards
+	        int numberOfPixelsToDragTheScrollbarDown = 10;
+	        for (int i = 10; i < scrollPoints; i = i + numberOfPixelsToDragTheScrollbarDown)
+	        {
+	            dragger.moveToElement(webelement).clickAndHold().moveByOffset(0, numberOfPixelsToDragTheScrollbarDown).release(webelement).build().perform();
+	        }
+	        Thread.sleep(500);
+	        return true;
+	    }
+	    catch (Exception e)
+	    {
+	        e.printStackTrace();
+	        return false;
+	    }
 	}
 
 	/**
@@ -586,7 +631,7 @@ public class PipelineBase extends Configuration{
 		} catch (StaleElementReferenceException e) {
 			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
 			Utils.pause(WAIT_INTERVAL);
-			selectNotByOption(locator, option);
+			select(locator, option);
 		} finally {
 			loopCount = 0;
 		}
@@ -784,7 +829,8 @@ public class PipelineBase extends Configuration{
 	 * false-> file is not exist
 	 */
 	public boolean checkFileExisted(String file){
-		String pathFile = System.getProperty("user.dir") + "/src/main/resources/TestData/" + file;
+		PATH_DOWNLOADFOLER=System.getProperty("user.dir")+"/src/main/resources/TestData/TestOutput/";
+		String pathFile = PATH_DOWNLOADFOLER+ file;
 		boolean found = false;
 
 		if (new File(pathFile).isFile()){
@@ -844,6 +890,38 @@ public class PipelineBase extends Configuration{
 		info(dateFormat.format(cal.getTime()));
 		return (dateFormat.format(cal.getTime()));	
 	}
+	/**
+	 * Get the first day of current month
+	 * @param format
+	 * @return firstDayOfMonth.format(DateTimeFormatter.ofPattern(format))
+	 */
+	public String getFirstDayOfMonth(String format){
+		LocalDate localDate = LocalDate.now();
+		LocalDate firstDayOfMonth=localDate.with(TemporalAdjusters.firstDayOfMonth());
+		return firstDayOfMonth.format(DateTimeFormatter.ofPattern(format));
+	}
+	/**
+	 * Get middle of current month
+	 * @param format
+	 * @return middleOfMonth.format(DateTimeFormatter.ofPattern(format))
+	 */
+	public String getMiddleDayOfMonth(String format){
+		LocalDate localDate = LocalDate.now();
+		LocalDate firstDayOfMonth=localDate.with(TemporalAdjusters.firstDayOfMonth());
+		LocalDate middleOfMonth=firstDayOfMonth.plusDays(15);
+		return middleOfMonth.format(DateTimeFormatter.ofPattern(format));
+	}
+	/**
+	 * Get the last of day of current month
+	 * @param format
+	 * @return lastDayOfMonth.format(DateTimeFormatter.ofPattern(format))
+	 */
+	public String getLastDayOfMonth(String format){
+		LocalDate localDate = LocalDate.now();
+		LocalDate lastDayOfMonth=localDate.with(TemporalAdjusters.lastDayOfMonth());
+		return lastDayOfMonth.format(DateTimeFormatter.ofPattern(format));
+	}
+	
 	/**
 	 * Get date from firstDayOf Week
 	 * @param gap
@@ -996,6 +1074,20 @@ public class PipelineBase extends Configuration{
 		StringBuilder sb = new StringBuilder();
 		Random random = new Random();
 		for (int i = 0; i < 6; i++) {
+			char c = chars[random.nextInt(chars.length)];
+			sb.append(c);
+		}
+		return sb.toString();
+	}
+	/**
+	 * Get a list of random numbers with 10 numbers
+	 * @return random numbers
+	 */
+	public String getLongRandomNumber() {
+		char[] chars = "0123456789".toCharArray();
+		StringBuilder sb = new StringBuilder();
+		Random random = new Random();
+		for (int i = 0; i < 10; i++) {
 			char c = chars[random.nextInt(chars.length)];
 			sb.append(c);
 		}
@@ -1335,7 +1427,7 @@ public class PipelineBase extends Configuration{
 	 */
 	public static void scrollToElement(WebElement element, WebDriver driver) {
 		JavascriptExecutor jse = (JavascriptExecutor) driver;
-		jse.executeScript("arguments[0].scrollIntoView(true);", element);
+		jse.executeScript("arguments[0].scrollIntoView();", element);
 	}
 	/**
 	 * Scroll to bottom of the page of website
@@ -1407,5 +1499,169 @@ public class PipelineBase extends Configuration{
         USER_ROOT=userData.hpid.get(0);
         USER_PASS=userData.password.get(0);
         USER_ROOT_FULLNAME = userData.fullname.get(0);
-	}	
+        USER_ROOT_EMAIL = userData.email.get(0);
+	}
+	/**
+	 * Go to the gmail and login by new browser
+	 * @param email
+	 * @param pass
+	 */
+	public void goToMail(String email, String pass){	
+		driver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL +"n");
+		for(String winHandle : driver.getWindowHandles()){
+			driver.switchTo().window(winHandle);
+		}
+		info("Go to gmail");
+		driver.navigate().to(GMAIL_URL);
+		driver.manage().window().maximize();
+
+		//login to mail
+		if(waitForAndGetElement(ELEMENT_GMAIL_USERNAME, 5000,0) == null){
+			if (waitForAndGetElement(ELEMENT_GMAIL_SIGN_IN_LINK,3000,0) != null)
+				click(ELEMENT_GMAIL_SIGN_IN_LINK); 
+			else{
+				click(ELEMENT_GMAIL_SIGNIN_DIFFERENT_ACC);
+				click(ELEMENT_GMAIL_ADD_ACCOUNT);
+			}
+		}
+		type(ELEMENT_GMAIL_USERNAME, email, true);
+		click(ELEMENT_GMAIL_NEXT_BTN);
+		Utils.pause(1000);
+		type(ELEMENT_GMAIL_PASS, pass, true);
+		click(ELEMENT_GMAIL_SIGN_IN);
+		//clearCache();
+		Utils.pause(2000);
+		click(ELEMENT_GMAIL_INBOX);
+		Utils.pause(2000);
+	}
+	
+	/**
+	 * Get list all Browsers
+	 */
+	public void getAllChildWindows() {
+		for (String windowHandle : driver.getWindowHandles()) {
+			driver.switchTo().window(windowHandle);
+			info("driver.title:" + driver.getTitle());
+			driver.manage().window().maximize();
+		}
+	}
+	/**
+	 * Close all child drivers
+	 * @param parentTitle
+	 *                    is the tilte of parent browsers
+	 */
+	public void closeChildBrowsers(String parentWindow){
+		info("parentWindow:"+parentWindow);
+		Set<String> handlers=driver.getWindowHandles(); 
+		//Handler will have all the three window handles
+		for(String windowHandle  : handlers){
+		     driver.switchTo().window(windowHandle);
+		     info("windowHandle"+windowHandle);
+		     //If it is not the parent window it will close the child window 
+		     if(!windowHandle.contains(parentWindow)){
+		    	  info("close driver.title:"+driver.getTitle());
+		    	  Utils.pause(2000);
+				  driver.close();
+		     }
+		   
+	    }
+	}
+	
+	/**
+	 * Verify email notification's title of comment an Activity is shown
+	 * @param title 
+	 *                  is the title of email notification
+	 * @param fullName
+	 *                 is full name of the user
+	 * @param content
+	 *                  is the content of email notification
+	 */
+	public void verifyPresentEmailActivityNotifications(String title,String fullName,String content){
+			{
+				info("Verify that email notificaiton is sent to user's inbox");
+				waitForAndGetElement(ELEMENT_GMAIL_TITLE
+						.replace("$title",title)
+						.replace("$fullName", fullName),30000, 1);
+			}
+	}
+	
+	/**
+	 * Compare 2 list
+	 * @param list1
+	 * @param list2
+	 * @return boolean
+	 */
+	public  boolean equalLists(List<String> list1, List<String> list2){     
+	    // Check for sizes and nulls
+	    if ((list1.size() != list2.size()) || (list1 == null && list2!= null) || (list1 != null && list2== null)){
+	        return false;
+	    }
+	    // Sort and compare the two lists          
+	    Collections.sort(list1);
+	    Collections.sort(list2);      
+	    return list1.equals(list2);
+	}
+	
+	/**
+	 * drag and drop element
+	 * @param sourceLocator
+	 * @param targetLocator
+	 */
+	public void dragAndDropToObject(Object sourceLocator, Object targetLocator) {
+		info("--Drag and drop to object--");
+		Actions action = new Actions(driver);
+		try {
+			WebElement source = waitForAndGetElement(sourceLocator);
+			WebElement target = waitForAndGetElement(targetLocator);
+
+			action.dragAndDrop(source, target).build().perform();
+		} catch (StaleElementReferenceException e) {
+			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
+			Utils.pause(WAIT_INTERVAL);
+			dragAndDropToObject(sourceLocator, targetLocator);
+		}catch (UnhandledAlertException e) {
+			try {
+				Alert alert = driver.switchTo().alert();
+				alert.accept();
+				switchToParentWindow();
+			} catch (NoAlertPresentException eNoAlert) {
+			}
+		}
+
+		finally {
+			loopCount = 0;
+		}
+		Utils.pause(1000);
+	}
+	/**
+	 * Drag an object
+	 * @param sourceLocator
+	 * @param targetLocator
+	 */
+	public void dragObject(String sourceLocator, String targetLocator){
+		info("--Drag an object--");
+		Actions action = new Actions(this.driver);
+		WebElement source = waitForAndGetElement(sourceLocator);
+		WebElement target = waitForAndGetElement(targetLocator);
+
+		try {
+			action.clickAndHold(source).moveToElement(target).release().build().perform();
+		} catch (StaleElementReferenceException e) {
+			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
+			Utils.pause(WAIT_INTERVAL);
+			action.clickAndHold(source).moveToElement(target).release().build().perform();
+		}catch (UnhandledAlertException e) {
+			try {
+				Alert alert = driver.switchTo().alert();
+				alert.accept();
+				switchToParentWindow();
+			} catch (NoAlertPresentException eNoAlert) {
+			}
+		}
+
+		finally {
+			loopCount = 0;
+		}
+		Utils.pause(1000);
+	}
 }

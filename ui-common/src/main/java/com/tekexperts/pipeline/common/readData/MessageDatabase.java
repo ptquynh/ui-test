@@ -36,7 +36,7 @@ public class MessageDatabase {
 	public void setData(String dataFile, String userSheet, Object... opParams) throws Exception{
 		String[][] testData = DatabaseResource.getDataFromSource(dataFile,userSheet,opParams);
 		info("dataFile path:"+dataFile);
-		for(int i = 0; i<testData.length; i++)
+		for(int i = 1; i<testData.length; i++)
 		{	
 			info("i:"+i);
 			type.add(Integer.valueOf(testData[i][0]));

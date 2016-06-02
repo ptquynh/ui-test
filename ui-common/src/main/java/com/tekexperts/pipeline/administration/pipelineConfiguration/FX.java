@@ -49,6 +49,7 @@ public class FX extends PipelineBase{
      */
 	public void upload(String path, String fileName,String month,String year){
 		info("Click on Choose file button");
+		info("path+fileName"+path+fileName);
 		waitForAndGetElement(ELEMENT_FX_CHOOSEFILE_BTN).sendKeys(path+fileName);
 		if(!month.isEmpty())
 			select(ELEMENT_FX_MONTH_DROPBOX,month,2);

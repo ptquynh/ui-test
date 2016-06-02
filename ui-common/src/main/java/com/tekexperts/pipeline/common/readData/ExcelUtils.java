@@ -1,29 +1,41 @@
 package com.tekexperts.pipeline.common.readData;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFFont;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.ss.util.NumberToTextConverter;
+
+import static com.tekexperts.pipeline.common.TestLogger.info;
 
 public class ExcelUtils {
-	private static HSSFSheet ExcelWSheet;
-	private static HSSFWorkbook ExcelWBook;
-	private static HSSFCell Cell;
-	private static HSSFFont hSSFFont;
+	private static Sheet ExcelWSheet;
+	private static Workbook ExcelWBook;
+	private static Cell Cell;
+	private static Font font;
+	private static FileInputStream ExcelFile;
 	//This method is to set the File path and to open the Excel file, Pass Excel Path and Sheetname as Arguments to this method
 	public static void setExcelFile(String Path,String SheetName) throws Exception {
 		try {
 			// Open the Excel file
-			FileInputStream ExcelFile = new FileInputStream(Path);
+			ExcelFile = new FileInputStream(Path);
 			// Access the required test data sheet
-			ExcelWBook = new HSSFWorkbook(ExcelFile);
-			ExcelWSheet = ExcelWBook.getSheet(SheetName);
-			hSSFFont = ExcelWBook.createFont();
-			hSSFFont.setFontName(HSSFFont.FONT_ARIAL);
-			hSSFFont.setCharSet(HSSFFont.ANSI_CHARSET);
+			ExcelWBook = WorkbookFactory.create(ExcelFile);
+			ExcelWSheet = ExcelWBook.getSheetAt(0);
+			font = ExcelWBook.createFont();
+			font.setFontName(HSSFFont.FONT_ARIAL);
+			font.setCharSet(HSSFFont.ANSI_CHARSET);
 		} catch (Exception e){
 			throw (e);
 		}
@@ -40,20 +52,50 @@ public class ExcelUtils {
 	}
 
 	public static String[][] getData(){
-		int xRows = ExcelWSheet.getLastRowNum();
+		int xRows = ExcelWSheet.getLastRowNum()+1;
 		int xCols = ExcelWSheet.getRow(0).getLastCellNum();
-		int nRow = 1;
-		
+		//int nRow = 1;
+		Iterator<Row> iterator=ExcelWSheet.iterator();
+		info("xRows:"+xRows);
+		info("xCols:"+xCols);
 		String[][] xData = new String[xRows][xCols];
-		for (int i = 0; i < xRows; i++) {
-			HSSFRow row = ExcelWSheet.getRow(nRow);
+		
+		while(iterator.hasNext()){
+			Row nextRow=iterator.next();
+			Iterator<Cell> cellIterator=nextRow.cellIterator();
+			int i=nextRow.getRowNum();
+			int j=0;
+			info("i:"+i);
+			while(cellIterator.hasNext()){
+				Cell cell = cellIterator.next();
+				if(i>0){
+					j=cell.getColumnIndex();
+					if (cell.getCellType() == org.apache.poi.ss.usermodel.Cell.CELL_TYPE_NUMERIC){
+						String value = NumberToTextConverter.toText(cell.getNumericCellValue()); 
+						if(value!=null)
+						xData[i][j] = value;
+					}
+					else{
+						cell.setCellType(1);
+						String value =  cell.getStringCellValue();
+						if(value!=null)
+						xData[i][j] = value;
+					}
+					info("xData["+i+"]["+j+"]:"+xData[i][j]);
+				}
+				
+			}
+		}
+		/*for (int i = 0; i < xRows; i++) {
+			Row row = ExcelWSheet.getRow(nRow);
+			info("nRow:"+nRow);
 			for (int j = 0; j < xCols; j++) {
-				HSSFCell cell = row.getCell(j);
+				Cell cell = row.getCell(j);
 				if(cell==null)
 					continue;
 				else{
 					if (cell.getCellType() == org.apache.poi.ss.usermodel.Cell.CELL_TYPE_NUMERIC){
-						String value = String.valueOf((int)Math.round(cell.getNumericCellValue()));
+						String value = NumberToTextConverter.toText(cell.getNumericCellValue()); 
 						if(value!=null)
 						xData[i][j] = value;
 					}
@@ -66,7 +108,78 @@ public class ExcelUtils {
 				}
 			}
 			nRow++;
-		}
+		}*/
 		return xData;
+	}
+	/**
+	 * Update data in existing file for many contracts
+	 * @param Path
+	 * @param rowList
+	 * @param cellNum
+	 * @param updateValue
+	 */
+	public static void writeData(String Path,ArrayList<Integer> rowList, ArrayList<Integer> cellNum,ArrayList<String> updateValue ) {
+		try {
+			Cell cell = null; 
+			for(int j=0;j<rowList.size();j++){
+				info("j:"+j);
+				info("rowList.size():"+rowList.size());
+				// declare a Cell object 
+				for(int i=0;i<cellNum.size();i++){
+					info("i:"+i);
+					info("cellNum.size():"+cellNum.size());
+					info("rowList.get(j):"+rowList.get(j));
+					info("cellNum.get(i):"+cellNum.get(i));
+					info("updateValue.get(i):"+updateValue.get(i));
+					//Cell cell = null; 
+		            cell = ExcelWSheet.getRow(rowList.get(j)).getCell(cellNum.get(i));
+		            if(cell==null)
+						cell=ExcelWSheet.getRow(rowList.get(j)).createCell(cellNum.get(i));
+		            cell.setCellValue(updateValue.get(i)); 
+				}
+			}
+            //Close the InputStream
+            ExcelFile.close(); 
+            //Open FileOutputStream to write updates
+            FileOutputStream output_file =new FileOutputStream(new File(Path));  
+            //write changes
+            ExcelWBook.write(output_file); 
+            //close the stream    
+            output_file.close();  
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Update data in existing file for one contract
+	 * @param Path
+	 * @param row
+	 * @param cellNum
+	 * @param updateValue
+	 */
+	public static void writeData(String Path,int row,int cellNum,String updateValue ) {
+		try {
+            Cell cell = null; 
+            cell = ExcelWSheet.getRow(row).getCell(cellNum);
+            if(cell==null)
+            	cell=ExcelWSheet.getRow(row).createCell(cellNum);
+           // Get current cell value value and overwrite the value
+            cell.setCellValue(updateValue); 
+            //Close the InputStream
+            ExcelFile.close(); 
+            //Open FileOutputStream to write updates
+            FileOutputStream output_file =new FileOutputStream(new File(Path));  
+            //write changes
+            ExcelWBook.write(output_file); 
+            //close the stream    
+            output_file.close();  
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

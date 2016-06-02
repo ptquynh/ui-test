@@ -33,9 +33,9 @@ public class AttachmentFileDatabase {
 	 * @param opParams
 	 * @throws Exception
 	 */
-	public void setAttachFileData(String userDataFile, String userSheet, Object... opParams) throws Exception{
+	public void setData(String userDataFile, String userSheet, Object... opParams) throws Exception{
 		String[][] testData = DatabaseResource.getDataFromSource(userDataFile,userSheet,opParams);
-		for(int i = 0; i<testData.length; i++)
+		for(int i = 1; i<testData.length; i++)
 		{	
 			type.add(Integer.valueOf(testData[i][0]));
 			attachName.add(testData[i][1]);

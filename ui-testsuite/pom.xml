@@ -26,6 +26,27 @@
 				<testSuite>smoke-testing.xml</testSuite>
 			</properties>
 		</profile>
+		 <!-- Func-Administration-->
+		<profile>
+			<id>Func-Administration</id>
+			<properties>
+				<testSuite>Func-Administration.xml</testSuite>
+			</properties>
+		</profile>
+		 <!-- Func-Others-->
+		<profile>
+			<id>Func-Others</id>
+			<properties>
+				<testSuite>Func-Others.xml</testSuite>
+			</properties>
+		</profile>
+		 <!-- Func-PipelineManagement-->
+		<profile>
+			<id>Smoke-Testing</id>
+			<properties>
+				<testSuite>Func-PipelineManagement.xml</testSuite>
+			</properties>
+		</profile>
 		<!-- Testing failed-->
 		<profile>
 			<id>testng-failed</id>

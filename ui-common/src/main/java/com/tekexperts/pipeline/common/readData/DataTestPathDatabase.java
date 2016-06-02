@@ -18,7 +18,7 @@ public class DataTestPathDatabase {
 
 	public void setDataTestPathData(String userDataFile, String userSheet, Object... opParams) throws Exception{
 		String[][] testData = DatabaseResource.getDataFromSource(userDataFile,userSheet,opParams);
-		for(int i = 0; i<testData.length; i++)
+		for(int i = 1; i<testData.length; i++)
 		{	
 			dataTest.add(testData[i][0]);
 		}

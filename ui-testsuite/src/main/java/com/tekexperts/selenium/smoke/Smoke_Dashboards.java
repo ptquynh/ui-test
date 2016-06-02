@@ -21,7 +21,8 @@ public class Smoke_Dashboards extends TestConfig_Smoke{
 	 * 4. Pipeline page is shown
 	 */
 	@Test
-	public void VAN1740_CheckBusinessManagement(){
+	public void VAN1740_CheckPipelineDashboard(){
+		info("Check Pipeline Dashboard");
 		info("Go to Dashboard page");
 		navMenu.goToDashboard();
 		info("Go to Pipeline page");
@@ -77,8 +78,9 @@ public class Smoke_Dashboards extends TestConfig_Smoke{
 	 * 2. Home page is shown
 	 * 3. Dashboard Home page is shown
 	 * 4=>12. Lost page is shown with correct tab's content
+	 * PENDING: WAITING NEW APPLY KENDO FOR THIS PART
 	 */
-	@Test
+	@Test(groups="pending")
 	public void VAN1742_00_CheckLostDashboard(){
 		info("Go to Dashboard page");
 		navMenu.goToDashboard();
@@ -88,7 +90,7 @@ public class Smoke_Dashboards extends TestConfig_Smoke{
 	    lostBU.verifyPageTitle();
 	}
 	
-	@Test
+	@Test(groups="pending")
 	public void VAN1742_01_CheckLostDashboard(){
 		info("Go to Dashboard page");
 		navMenu.goToDashboard();
@@ -98,7 +100,7 @@ public class Smoke_Dashboards extends TestConfig_Smoke{
 	    lostReason.verifyDashboard();
 	}
 	
-	@Test
+	@Test(groups="pending")
 	public void VAN1742_02_CheckLostDashboard(){
 		info("Go to Dashboard page");
 		navMenu.goToDashboard();
@@ -108,7 +110,7 @@ public class Smoke_Dashboards extends TestConfig_Smoke{
 	    lostChannel.verifyDashboard();
 	}
 	
-	@Test
+	@Test(groups="pending")
 	public void VAN1742_03_CheckLostDashboard(){
 		info("Go to Dashboard page");
 		navMenu.goToDashboard();
@@ -118,7 +120,7 @@ public class Smoke_Dashboards extends TestConfig_Smoke{
 	    lostSize.verifyDashboard();
 	}
 	
-	@Test
+	@Test(groups="pending")
 	public void VAN1742_04_CheckLostDashboard(){
 		info("Go to Dashboard page");
 		navMenu.goToDashboard();
@@ -128,7 +130,7 @@ public class Smoke_Dashboards extends TestConfig_Smoke{
 	    lostSummary.verifyDashboard();
 	}
 	
-	@Test
+	@Test(groups="pending")
 	public void VAN1742_05_CheckLostDashboard(){
 		info("Go to Dashboard page");
 		navMenu.goToDashboard();
@@ -138,7 +140,7 @@ public class Smoke_Dashboards extends TestConfig_Smoke{
 	    lostDuration.verifyDashboard();
 	}
 	
-	@Test
+	@Test(groups="pending")
 	public void VAN1742_06_CheckLostDashboard(){
 		info("Go to Dashboard page");
 		navMenu.goToDashboard();
@@ -148,7 +150,7 @@ public class Smoke_Dashboards extends TestConfig_Smoke{
 	    lostPL.verifyDashboard();
 	}
 	
-	@Test
+	@Test(groups="pending")
 	public void VAN1742_07_CheckLostDashboard(){
 		info("Go to Dashboard page");
 		navMenu.goToDashboard();
