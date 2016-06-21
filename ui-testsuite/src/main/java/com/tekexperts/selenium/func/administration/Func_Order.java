@@ -13,6 +13,337 @@ import com.tekexperts.pipeline.pipelineManagement.operation.FalloutUnassignedOrd
 
 import static com.tekexperts.pipeline.common.TestLogger.info;
 public class Func_Order extends TestConfig{
+	/**
+	* Test case ID:VAN-2138
+	* Test case name:"Assign a Order by EMEA/SOLD TO assignment rules"
+	* Precondition:
+	* Test details:
+	* Test Step 1:"Go to <test_environment>"
+	* Test Step 2:"Login with user A"
+	* Test Data:"HPID: 2222Pass: Test@123456"
+	* Expected Result:"Home page is shown"
+	* Test Step 3:"Click on [Data Import] link on the left menu"
+	* Expected Result:"Data Import Home page is shown"
+	* Test Step 4:"Click on [Order Import] button"
+	* Expected Result:"Order page is shown"
+	* Test Step 5:"Import a Order file"
+	* Test Data:"Attached file bellow"
+	* Expected Result:"The file is imported successfully"
+	* Test Step 6:"Click on [View] button"
+	* Expected Result:"All data in the columns is displayed with correct data in the excel"
+	* Test Step 7:"Check [Assignment] column"
+	* Expected Result:"Display correct username that is set in corresponding Assignment Rules."
+	* Test Step 8:"Check [RTM] column"
+	* Expected Result:"This column is blank"
+	* Test Step 9:"Check [ATR type] column"
+	* Expected Result:"This column is blank"
+	* Test Step 10:"Check data in all remain columns"
+	* Expected Result:"All data is displayed correctly as in the excel file"
+	* Test Step 11:"Click on [Operation] link on the left menu"
+	* Expected Result:"Operation page home is shown"
+	* Test Step 12:"Click on [Fallout Orders] button"
+	* Expected Result:"Fallout Summaries page is shown"
+	* Test Step 13:"Click on [Unassigned Orders] tab"
+	* Expected Result:"The tab's content is shown"
+	* Test Step 14:"Check Unassigned Orders list"
+	* Expected Result:"The order is not displayed in the list"
+	 * @throws Exception 
+	*/
+	@Test
+	public void VAN2138_AssignAOrderByEMEASOLDTOAssignmentRules() throws Exception{
+		info("Assign a Order by EMEA/SOLD TO assignment rules");
+		info("Create assignment rules");
+		info("Create a new rsr user");
+		String fullName="user"+getRandomNumber();
+		String email =fullName+"@gmail.com";
+		String hpID=getRandomNumber();
+		String telephone=getRandomNumber();
+		String city=getRandomString();
+		String country=getRandomString();
+		String region =getRandomString();
+		String role = roleData.getContentByType(5);
+		info("Go to Organization home page");
+		navMenu.goToOrganization();
+		info("Go to User list page");
+		orgHome.goToUser();
+		info("Go to Add user page");
+		user.goToAddUser();
+		info("Add a new user");
+		user.add(fullName, email, hpID,USER_PASS, USER_PASS,false,false,"", "",region, telephone,city,country,"",role);
+		user.save();
+		Utils.pause(3000);
+		
+		info("Update Sold to column in Order file");
+		ArrayList<Integer>rowList=new ArrayList<Integer>();
+		ArrayList<Integer>colList=new ArrayList<Integer>();
+		ArrayList<String>valueList=new ArrayList<String>();
+		String soldToAMIDLevel2ID=getRandomString()+getLongRandomNumber();
+		String shipToAMIDLevel2ID=getRandomString()+getLongRandomNumber();
+		String prevDoc=getLongRandomNumber();
+		for(int i=1;i<7;i++)rowList.add(i);
+		colList.add(4);
+		colList.add(8);
+		colList.add(49);
+		valueList.add(soldToAMIDLevel2ID);
+		valueList.add(shipToAMIDLevel2ID);
+		valueList.add(prevDoc);
+		String fileOrder= fData.getAttachFileByArrayTypeRandom(75);
+		String path2=PATH_TESTDATA+fileOrder;
+		upData.updateByArray(path2, defaultSheet,rowList, colList, valueList, isUseFile);
+		
+		String fileAssignRule=assignRuleFilePath;
+		info("Update sold to and ship to column for rules from 76->81");
+		ArrayList<Integer>rowList2=new ArrayList<Integer>();
+		ArrayList<Integer>colList2=new ArrayList<Integer>();
+		ArrayList<String>valueList2=new ArrayList<String>();
+		for(int i=76;i<82;i++)rowList2.add(i);
+		colList2.add(7);
+		valueList2.add(soldToAMIDLevel2ID);
+		upData.updateByArray(fileAssignRule, defaultSheet,rowList2, colList2, valueList2, isUseFile);
+		
+		info("Update assign to column for rules from 76->81");
+		ArrayList<Integer>rowList1=new ArrayList<Integer>();
+		ArrayList<Integer>colList1=new ArrayList<Integer>();
+		ArrayList<String>valueList1=new ArrayList<String>();
+		for(int i=76;i<82;i++)rowList1.add(i);
+		colList1.add(10);
+		valueList1.add(fullName);
+		upData.updateByArray(fileAssignRule, defaultSheet,rowList1, colList1, valueList1, isUseFile);
+		assignData.setData(fileAssignRule,defaultSheet,isUseFile);
+		info("Go to Data Import page");
+		navMenu.goToDataImport();
+		info("Go to Assignment Rules page");
+		dataImportHome.goToAssignmentRules();
+		
+		ArrayList<String>superregionList=new ArrayList<String>();
+		ArrayList<String>regionList=new ArrayList<String>();
+		ArrayList<String>countryList=new ArrayList<String>();
+		ArrayList<String>businessList=new ArrayList<String>();
+		ArrayList<String>productList=new ArrayList<String>();
+		ArrayList<String>shipToList=new ArrayList<String>();
+		ArrayList<String>soldToList=new ArrayList<String>();
+		ArrayList<String>customeShipList=new ArrayList<String>();
+		ArrayList<String>customeSoldList=new ArrayList<String>();
+		for(int i=76;i<82;i++){
+			info("Create rule:"+i);
+			superregionList.add(assignData.getSuperRegionByType(i));
+			regionList.add(assignData.getRegionByType(i));
+			countryList.add(assignData.getCountryByType(i));
+			businessList.add(assignData.getBusinessUnitByType(i));
+			productList.add(assignData.getProductLineByType(i));
+			shipToList.add(assignData.getShipToAMIDByType(i));
+			soldToList.add(assignData.getSoldToAMIDByType(i));
+			customeShipList.add(assignData.getCustomerNameShipToByType(i));
+			customeSoldList.add(assignData.getcustomerNameSoldToByType(i));
+			String assignTo=assignData.getAssignToByType(i);
+			info("Go to Add Assignment Rules page");
+			assignRule.goToAddRule();
+			info("Add a new assignment rule");
+			assignRule.add(
+					assignData.getSuperRegionByType(i), 
+					assignData.getRegionByType(i), 
+					assignData.getCountryByType(i), 
+					assignData.getBusinessUnitByType(i), 
+					assignData.getProductLineByType(i), 
+					assignData.getShipToAMIDByType(i), 
+					assignData.getSoldToAMIDByType(i), 
+					assignData.getCustomerNameShipToByType(i), 
+					assignData.getcustomerNameSoldToByType(i), 
+					assignTo);
+			info("Verify that the new assigment rule is added successfully");
+			assignRule.verifyNotiMesgSuccess();
+			
+		}
+		
+		info("Go to Order page");
+		navMenu.goToDataImport();
+		dataImportHome.goToOrderReport();
+		info("Upload a order file");
+		order.upload(PATH_TESTDATA, fileOrder);
+		info("Go to view detail");
+		order.goToViewDetail();
+		
+		order.filterBy(filterViewDetail.PREVIOUS_DOC,prevDoc);
+		for(int j=0;j<superregionList.size();j++)
+			order.verifyAssignRule(prevDoc,businessList.get(j),regionList.get(j),countryList.get(j),productList.get(j),fullName);
+		
+		info("Go to Operation page");
+		navMenu.goToOperation();
+		info("Go to Fallout Order");
+		opeHome.goToFalloutOrders();
+		info("Go to Unassigned Orders tab");
+		falloutHomepage.goToUnassignedOrdersTab();
+		info("Verify that the orders is displayed in the list");
+		falloutUnassignedOrders.filterBy(filterUnassigned.PREVIOUS_DOC,prevDoc);
+		for(int j=0;j<superregionList.size();j++)
+		   falloutUnassignedOrders.verifyNOTUnassignRule(businessList.get(j),countryList.get(j),productList.get(j));
+	}
+	
+	/**
+	* Test case ID:VAN-2133
+	* Test case name:"Assign a Order by EMEA/SHIP TO assignment rules"
+	* Precondition:
+	* Test details:
+	* Test Step 1:"Go to <test_environment>"
+	* Test Step 2:"Login with user A"
+	* Test Data:"HPID: 2222Pass: Test@123456"
+	* Expected Result:"Home page is shown"
+	* Test Step 3:"Click on [Data Import] link on the left menu"
+	* Expected Result:"Data Import Home page is shown"
+	* Test Step 4:"Click on [Order Import] button"
+	* Expected Result:"Order page is shown"
+	* Test Step 5:"Import a Order file"
+	* Test Data:"Attached file bellow"
+	* Expected Result:"The file is imported successfully"
+	* Test Step 6:"Click on [View] button"
+	* Expected Result:"All data in the columns is displayed with correct data in the excel"
+	* Test Step 7:"Check [Assignment] column"
+	* Expected Result:"Display correct username that is set in corresponding Assignment Rules."
+	* Test Step 8:"Check [RTM] column"
+	* Expected Result:"This column is blank"
+	* Test Step 9:"Check [ATR type] column"
+	* Expected Result:"This column is blank"
+	* Test Step 10:"Check data in all remain columns"
+	* Expected Result:"All data is displayed correctly as in the excel file"
+	* Test Step 11:"Click on [Operation] link on the left menu"
+	* Expected Result:"Operation page home is shown"
+	* Test Step 12:"Click on [Fallout Orders] button"
+	* Expected Result:"Fallout Summaries page is shown"
+	* Test Step 13:"Click on [Unassigned Orders] tab"
+	* Expected Result:"The tab's content is shown"
+	* Test Step 14:"Check Unassigned Orders list"
+	* Expected Result:"The order is not displayed in the list"
+	 * @throws Exception 
+	*/
+	@Test
+	public void VAN2133_AssignAOrderByEMEASOLDTOAssignmentRules() throws Exception{
+		info("Assign a Order by EMEA/SOLD TO assignment rules");
+		info("Create assignment rules");
+		info("Create a new rsr user");
+		String fullName="user"+getRandomNumber();
+		String email =fullName+"@gmail.com";
+		String hpID=getRandomNumber();
+		String telephone=getRandomNumber();
+		String city=getRandomString();
+		String country=getRandomString();
+		String region =getRandomString();
+		String role = roleData.getContentByType(5);
+		info("Go to Organization home page");
+		navMenu.goToOrganization();
+		info("Go to User list page");
+		orgHome.goToUser();
+		info("Go to Add user page");
+		user.goToAddUser();
+		info("Add a new user");
+		user.add(fullName, email, hpID,USER_PASS, USER_PASS,false,false,"", "",region, telephone,city,country,"",role);
+		user.save();
+		Utils.pause(3000);
+		
+		info("Update Sold to  and ship tocolumn in Order file");
+		ArrayList<Integer>rowList=new ArrayList<Integer>();
+		ArrayList<Integer>colList=new ArrayList<Integer>();
+		ArrayList<String>valueList=new ArrayList<String>();
+		String soldToAMIDLevel2ID=getRandomString()+getLongRandomNumber();
+		String shipToAMIDLevel2ID=getRandomString()+getLongRandomNumber();
+		String prevDoc=getLongRandomNumber();
+		for(int i=1;i<7;i++)rowList.add(i);
+		colList.add(4);
+		colList.add(8);
+		colList.add(49);
+		valueList.add(soldToAMIDLevel2ID);
+		valueList.add(shipToAMIDLevel2ID);
+		valueList.add(prevDoc);
+		String fileOrder= fData.getAttachFileByArrayTypeRandom(75);
+		String path2=PATH_TESTDATA+fileOrder;
+		upData.updateByArray(path2, defaultSheet,rowList, colList, valueList, isUseFile);
+		
+		String fileAssignRule=assignRuleFilePath;
+		info("Update sold to and ship to column for rules from 70->76");
+		ArrayList<Integer>rowList2=new ArrayList<Integer>();
+		ArrayList<Integer>colList2=new ArrayList<Integer>();
+		ArrayList<String>valueList2=new ArrayList<String>();
+		for(int i=70;i<76;i++)rowList2.add(i);
+		colList2.add(6);
+		valueList2.add(shipToAMIDLevel2ID);
+		upData.updateByArray(fileAssignRule, defaultSheet,rowList2, colList2, valueList2, isUseFile);
+		
+		info("Update assign to column for rules from 70->76");
+		ArrayList<Integer>rowList1=new ArrayList<Integer>();
+		ArrayList<Integer>colList1=new ArrayList<Integer>();
+		ArrayList<String>valueList1=new ArrayList<String>();
+		for(int i=70;i<76;i++)rowList1.add(i);
+		colList1.add(10);
+		valueList1.add(fullName);
+		upData.updateByArray(fileAssignRule, defaultSheet,rowList1, colList1, valueList1, isUseFile);
+		assignData.setData(fileAssignRule,defaultSheet,isUseFile);
+		info("Go to Data Import page");
+		navMenu.goToDataImport();
+		info("Go to Assignment Rules page");
+		dataImportHome.goToAssignmentRules();
+		
+		ArrayList<String>superregionList=new ArrayList<String>();
+		ArrayList<String>regionList=new ArrayList<String>();
+		ArrayList<String>countryList=new ArrayList<String>();
+		ArrayList<String>businessList=new ArrayList<String>();
+		ArrayList<String>productList=new ArrayList<String>();
+		ArrayList<String>shipToList=new ArrayList<String>();
+		ArrayList<String>soldToList=new ArrayList<String>();
+		ArrayList<String>customeShipList=new ArrayList<String>();
+		ArrayList<String>customeSoldList=new ArrayList<String>();
+		for(int i=70;i<76;i++){
+			info("Create rule:"+i);
+			superregionList.add(assignData.getSuperRegionByType(i));
+			regionList.add(assignData.getRegionByType(i));
+			countryList.add(assignData.getCountryByType(i));
+			businessList.add(assignData.getBusinessUnitByType(i));
+			productList.add(assignData.getProductLineByType(i));
+			shipToList.add(assignData.getShipToAMIDByType(i));
+			soldToList.add(assignData.getSoldToAMIDByType(i));
+			customeShipList.add(assignData.getCustomerNameShipToByType(i));
+			customeSoldList.add(assignData.getcustomerNameSoldToByType(i));
+			String assignTo=assignData.getAssignToByType(i);
+			info("Go to Add Assignment Rules page");
+			assignRule.goToAddRule();
+			info("Add a new assignment rule");
+			assignRule.add(
+					assignData.getSuperRegionByType(i), 
+					assignData.getRegionByType(i), 
+					assignData.getCountryByType(i), 
+					assignData.getBusinessUnitByType(i), 
+					assignData.getProductLineByType(i), 
+					assignData.getShipToAMIDByType(i), 
+					assignData.getSoldToAMIDByType(i), 
+					assignData.getCustomerNameShipToByType(i), 
+					assignData.getcustomerNameSoldToByType(i), 
+					assignTo);
+			info("Verify that the new assigment rule is added successfully");
+			assignRule.verifyNotiMesgSuccess();
+			
+		}
+		
+		info("Go to Order page");
+		navMenu.goToDataImport();
+		dataImportHome.goToOrderReport();
+		info("Upload a order file");
+		order.upload(PATH_TESTDATA, fileOrder);
+		info("Go to view detail");
+		order.goToViewDetail();
+		
+		order.filterBy(filterViewDetail.PREVIOUS_DOC,prevDoc);
+		for(int j=0;j<superregionList.size();j++)
+			order.verifyAssignRule(prevDoc,businessList.get(j),regionList.get(j),countryList.get(j),productList.get(j),fullName);
+		
+		info("Go to Operation page");
+		navMenu.goToOperation();
+		info("Go to Fallout Order");
+		opeHome.goToFalloutOrders();
+		info("Go to Unassigned Orders tab");
+		falloutHomepage.goToUnassignedOrdersTab();
+		info("Verify that the orders is displayed in the list");
+		falloutUnassignedOrders.filterBy(filterUnassigned.PREVIOUS_DOC,prevDoc);
+		for(int j=0;j<superregionList.size();j++)
+		   falloutUnassignedOrders.verifyNOTUnassignRule(businessList.get(j),countryList.get(j),productList.get(j));
+	}
 		
 		/**
 		* Test case ID:VAN-1695

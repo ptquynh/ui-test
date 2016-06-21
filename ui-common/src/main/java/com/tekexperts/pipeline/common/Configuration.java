@@ -65,7 +65,7 @@ public class Configuration {
 	
 	/*========Default System Property=============*/
 	public final String DEFAULT_NATIVE_EVENT = "true";
-	public final String DEFAULT_BASEURL="http://10.12.14.205:8089/";
+	public final String DEFAULT_BASEURL="http://10.12.14.205";
 	public final String DEFAULT_BROWSER="chrome";//iexplorer, firefox, chrome
 	public final String DEFAULT_SERVER="win"; //win, ubuntu
 

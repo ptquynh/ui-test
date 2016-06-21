@@ -42,7 +42,7 @@
 		</profile>
 		 <!-- Func-PipelineManagement-->
 		<profile>
-			<id>Smoke-Testing</id>
+			<id>Func-PipelineManagement</id>
 			<properties>
 				<testSuite>Func-PipelineManagement.xml</testSuite>
 			</properties>
