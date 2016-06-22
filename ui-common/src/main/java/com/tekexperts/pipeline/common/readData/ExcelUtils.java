@@ -81,34 +81,11 @@ public class ExcelUtils {
 						if(value!=null)
 						xData[i][j] = value;
 					}
-					info("xData["+i+"]["+j+"]:"+xData[i][j]);
+					//info("xData["+i+"]["+j+"]:"+xData[i][j]);
 				}
 				
 			}
 		}
-		/*for (int i = 0; i < xRows; i++) {
-			Row row = ExcelWSheet.getRow(nRow);
-			info("nRow:"+nRow);
-			for (int j = 0; j < xCols; j++) {
-				Cell cell = row.getCell(j);
-				if(cell==null)
-					continue;
-				else{
-					if (cell.getCellType() == org.apache.poi.ss.usermodel.Cell.CELL_TYPE_NUMERIC){
-						String value = NumberToTextConverter.toText(cell.getNumericCellValue()); 
-						if(value!=null)
-						xData[i][j] = value;
-					}
-					else{
-						cell.setCellType(1);
-						String value =  cell.getStringCellValue();
-						if(value!=null)
-						xData[i][j] = value;
-					}
-				}
-			}
-			nRow++;
-		}*/
 		return xData;
 	}
 	/**

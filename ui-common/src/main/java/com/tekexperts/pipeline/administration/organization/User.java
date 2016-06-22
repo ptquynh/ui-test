@@ -529,8 +529,9 @@ public class User extends PipelineBase{
 					.replace("$business","All"));
 			Utils.pause(2000);
 		}
+		waitForAndGetElement(ELEMENT_USER_CONFIRM_POPUP_OK_BTN,3000,1);
 		click(ELEMENT_USER_CONFIRM_POPUP_OK_BTN);
-		waitForElementNotPresent(ELEMENT_USER_CONFIRM_POPUP_OK_BTN,2000,1);
+		Utils.pause(3000);
 		if(isVerify){
 			info("Verify that the credential is unset");
 			if(!region.isEmpty()&&!rtm.isEmpty()&&!business.isEmpty())

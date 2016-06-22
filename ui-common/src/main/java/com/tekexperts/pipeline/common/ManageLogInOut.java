@@ -111,7 +111,7 @@ public class ManageLogInOut extends PipelineBase {
     */
    public void verifyRecoveryPassSucc(){
 	   info("Verify that recovery password is success with success mess");
-	   waitForAndGetElement(ELEMENT_FORGOTPASS_SUCCESS_MESSAGE_RECOVERYPASS,2000,1);
+	   waitForAndGetElement(ELEMENT_FORGOTPASS_SUCCESS_MESSAGE_RECOVERYPASS,6000,1);
    }
    /**
     * Select remember checkbox

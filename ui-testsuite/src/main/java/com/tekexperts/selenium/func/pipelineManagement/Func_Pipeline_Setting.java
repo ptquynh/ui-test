@@ -535,14 +535,14 @@ public class Func_Pipeline_Setting extends TestConfig{
 			navMenu.goToUserProfile();
 			info("Click on [Pipeline Setting] link");
 			userPro.goToPipelineSetting();
-			String header1= pipeSetting.getLabel(tabType.GROUPBY,"1");
-			String header2= pipeSetting.getLabel(tabType.GROUPBY,"2");
-			dragObject(pipeSetting.ELEMENT_PIPELINESETTING_GROUPBY_ITEM.replace("$number","1"),
-					pipeSetting.ELEMENT_PIPELINESETTING_GROUPBY_ITEM.replace("$number","2"));
+			String header1= pipeSetting.getLabel(tabType.VISIBILITY,"1");
+			String header2= pipeSetting.getLabel(tabType.VISIBILITY,"2");
+			dragObject(pipeSetting.ELEMENT_PIPELINESETTING_VISIBILITY_ITEM.replace("$number","1"),
+					pipeSetting.ELEMENT_PIPELINESETTING_VISIBILITY_ITEM.replace("$number","2"));
 			Utils.pause(3000);
 			pipeSetting.save();
-			pipeSetting.verifyOrderColIsChange(tabType.GROUPBY,"1",header2);
-			pipeSetting.verifyOrderColIsChange(tabType.GROUPBY,"2",header1);
+			pipeSetting.verifyOrderColIsChange(tabType.VISIBILITY,"1",header2);
+			pipeSetting.verifyOrderColIsChange(tabType.VISIBILITY,"2",header1);
 			
 			info("Go to the pipeline list");
 			pipeSetting.clickBreadcrumb("Pipeline");
@@ -553,12 +553,12 @@ public class Func_Pipeline_Setting extends TestConfig{
 			navMenu.goToUserProfile();
 			info("Click on [Pipeline Setting] link");
 			userPro.goToPipelineSetting();
-			dragObject(pipeSetting.ELEMENT_PIPELINESETTING_GROUPBY_ITEM.replace("$number","1"),
-					pipeSetting.ELEMENT_PIPELINESETTING_GROUPBY_ITEM.replace("$number","2"));
+			dragObject(pipeSetting.ELEMENT_PIPELINESETTING_VISIBILITY_ITEM.replace("$number","1"),
+					pipeSetting.ELEMENT_PIPELINESETTING_VISIBILITY_ITEM.replace("$number","2"));
 			Utils.pause(3000);
 			pipeSetting.save();
-			pipeSetting.verifyOrderColIsChange(tabType.GROUPBY,"1",header1);
-			pipeSetting.verifyOrderColIsChange(tabType.GROUPBY,"2",header2);
+			pipeSetting.verifyOrderColIsChange(tabType.VISIBILITY,"1",header1);
+			pipeSetting.verifyOrderColIsChange(tabType.VISIBILITY,"2",header2);
 			
 		}
 		/**

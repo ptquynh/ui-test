@@ -299,7 +299,7 @@ public class Func_ATR extends TestConfig{
 		
 		/**
 		* Test case ID:VAN-1662
-		* Test case name:"Import ATR with only existed RTM in the system"
+		* Test case name:"Import ATR with no existed RTM in the system"
 		* Precondition:
 		* Test details:
 		* Test Step 1:"Go to <test_environment>"
@@ -312,18 +312,15 @@ public class Func_ATR extends TestConfig{
 		* Expected Result:"ATR page is shown"
 		* Test Step 5:"Select a file"
 		* Test Data:"Attached file bellow"
-		* Expected Result:"The file's name is displayed in the field"
-		* Test Step 6:"Click on [Import] button"
-		* Expected Result:"The file is imported successfully"
-		* Test Step 7:"Click on [View] link of the upload file at step 5"
-		* Expected Result:"In [Status] column
+		* Expected Result:show error message
 		* Test Step 8:"Go to Pipeline list"
 		* Expected Result:"The contract is not added to the list"
 		 * @throws Exception 
 		*/
 	@Test
-	public void VAN1662_ImportATRWithOnlyExistedRTMInTheSystem() throws Exception{
-		info("Import ATR with only existed RTM in the system");
+	public void VAN1662_ImportATRWithNoExistedRTMInTheSystem() throws Exception{
+		info("Import ATR with No existed RTM in the system");
+		String message = mesg.getContentByType(23);
 		String file = fData.getAttachFileByArrayTypeRandom(21);
 		ATRFilePath = PATH_TESTDATA+file;
 		ATRDatabase atrData= new ATRDatabase();
@@ -335,11 +332,9 @@ public class Func_ATR extends TestConfig{
 		info("Go to ATR page");
 		dataImportHome.goToATR();
 		info("Import a unassigned contract");
-		contract.upload(PATH_TESTDATA, file);
-		info("Open detail contract");
-		contract.goToViewDetail();
-		info("Verify the contract is imported successfully with No Business Unit status");
-		contract.checkStatus(status.NOBUSINESSUNIT, expDocNbr);
+		contract.upload(PATH_TESTDATA, file,false);
+		info("A error message is displayed");
+		contract.verifyMessageNotification(message);
 		info("Go to Pipeline list");
 		navMenu.goToPipeline();
 		pipeList.search(5,expDocNbr);
@@ -362,17 +357,16 @@ public class Func_ATR extends TestConfig{
 		* Test Data:"Attached file bellow"
 		* Expected Result:"The file's name is displayed in the field"
 		* Test Step 6:"Click on [Import] button"
-		* Expected Result:"The file is imported successfully"
-		* Test Step 7:"Click on [View] link of the upload file at step 5"
-		* Expected Result:"In [Status] column
+		* Expected Result:show error message
 		* Test Step 8:"Go to Pipeline list"
 		* Expected Result:"The contract is not added to the list"
 		 * @throws Exception 
 		*/
 	@Test
-	public void VAN1661_ImportATRWithOnlyExistedBusinessUnitInTheSystem() throws Exception{
-		info("Import ATR with only existed Business Unit in the system");
-		String file = fData.getAttachFileByArrayTypeRandom(19);
+	public void VAN1661_ImportATRWithNoExistedBusinessUnitInTheSystem() throws Exception{
+		info("Import ATR with no existed Business Unit in the system");
+		String message = mesg.getContentByType(24);
+		String file = fData.getAttachFileByArrayTypeRandom(17);
 		ATRFilePath = PATH_TESTDATA+file;
 		ATRDatabase atrData= new ATRDatabase();
 		atrData.setData(ATRFilePath,defaultSheet,isUseFile);
@@ -383,11 +377,9 @@ public class Func_ATR extends TestConfig{
 		info("Go to ATR page");
 		dataImportHome.goToATR();
 		info("Import a unassigned contract");
-		contract.upload(PATH_TESTDATA, file);
-		info("Open detail contract");
-		contract.goToViewDetail();
-		info("Verify the contract is imported successfully with No Business Unit status");
-		contract.checkStatus(status.NOBUSINESSUNIT, expDocNbr);
+		contract.upload(PATH_TESTDATA, file,false);
+		info("A error message is displayed");
+		contract.verifyMessageNotification(message);
 		info("Go to Pipeline list");
 		navMenu.goToPipeline();
 		pipeList.search(5,expDocNbr);
@@ -395,7 +387,7 @@ public class Func_ATR extends TestConfig{
 		
 		/**
 		* Test case ID:VAN-1660
-		* Test case name:"Import ATR with only existed Region in the system"
+		* Test case name:"Import ATR with no existed Region in the system"
 		* Precondition:
 		* Test details:
 		* Test Step 1:"Go to <test_environment>"
@@ -410,16 +402,15 @@ public class Func_ATR extends TestConfig{
 		* Test Data:"Attached file bellow"
 		* Expected Result:"The file's name is displayed in the field"
 		* Test Step 6:"Click on [Import] button"
-		* Expected Result:"The file is imported successfully"
-		* Test Step 7:"Click on [View] link of the upload file at step 5"
-		* Expected Result:"In [Status] column, display a status as:{color:red}No Region{color}
+		* Expected Result:show error message
 		* Test Step 8:"Go to Pipeline list"
 		* Expected Result:"The contract is not added to the list"
 		 * @throws Exception 
 		*/
 	@Test
-	public void VAN1660_ImportATRWithOnlyExistedRegionInTheSystem() throws Exception{
-		info("Import ATR with only existed Region in the system");
+	public void VAN1660_ImportATRWithNoExistedRegionInTheSystem() throws Exception{
+		info("Import ATR with no existed Region in the system");
+		String message = mesg.getContentByType(20);
 		String file = fData.getAttachFileByArrayTypeRandom(18);
 		ATRFilePath = PATH_TESTDATA+file;
 		ATRDatabase atrData= new ATRDatabase();
@@ -431,11 +422,9 @@ public class Func_ATR extends TestConfig{
 		info("Go to ATR page");
 		dataImportHome.goToATR();
 		info("Import a unassigned contract");
-		contract.upload(PATH_TESTDATA, file);
-		info("Open detail contract");
-		contract.goToViewDetail();
-		info("Verify the contract is imported successfully with No Region status");
-		contract.checkStatus(status.NOREGION, expDocNbr);
+		contract.upload(PATH_TESTDATA, file,false);
+		info("A error message is displayed");
+		contract.verifyMessageNotification(message);
 		info("Go to Pipeline list");
 		navMenu.goToPipeline();
 		pipeList.search(5,expDocNbr);
@@ -465,6 +454,7 @@ public class Func_ATR extends TestConfig{
 	public void VAN1659_ImportATRWithBlankRegionRTMBusinessUnit() throws Exception{
 		info("Import ATR with blank Region/RTM/Business Unit");
 		String message = mesg.getContentByType(20);
+		String message1 = mesg.getContentByType(23);
 		String file = fData.getAttachFileByArrayTypeRandom(15);
 		ATRFilePath = PATH_TESTDATA+file;
 		ATRDatabase atrData= new ATRDatabase();
@@ -478,6 +468,7 @@ public class Func_ATR extends TestConfig{
 		info("Import a unassigned contract");
 		contract.upload(PATH_TESTDATA, file,false);
 		contract.verifyMessageNotification(message);
+		contract.verifyMessageNotification(message1);
 	}
 		
 		/**

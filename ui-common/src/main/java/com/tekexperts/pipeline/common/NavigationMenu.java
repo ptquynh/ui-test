@@ -21,7 +21,7 @@ public class NavigationMenu extends PipelineBase {
 	//Pipeline Management-->Left Menu
 	public By ELEMENT_LEFT_MENU_DAHSBOARD = By.xpath(".//*[@href='/ControlPanel/Dashboard']");
 	public By ELEMENT_LEFT_MENU_OPERATION = By.xpath(".//*[@href='/ControlPanel/Operation']");
-	public By ELEMENT_LEFT_MENU_PIPELINE = By.xpath(".//*[@id='left-side']//*[@href='/Pipeline']");
+	public By ELEMENT_LEFT_MENU_PIPELINE = By.xpath(".//*[@id='left-side']//*[@href='/PipelineGeneral']");
 	public By ELEMENT_LEFT_MENU_HISTORICAL_DATA = By.xpath(".//*[@href='/HistoricalContract']");
 	//Left menu when collapsed
 	public By ELEMENT_LEFT_MENU_COLLAPSE_STATUS=By.xpath(".//*[@id='left-side'][@class='left-side sidebar-offcanvas collapse-left']");

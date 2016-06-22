@@ -119,7 +119,7 @@ public class UserProfile extends PipelineBase {
 	 * @param text
 	 */
 	public void verifyUserNOTInfor(String text){
-		info("Verify that the info:"+text+" isnot displayed in the My Detail");
+		info("Verify that the info:"+text+" is not displayed in the My Detail");
 		waitForElementNotPresent(ELEMENT_USERPROFILE_CONTENT_TEXT.replace("$text",text),2000,1);
 	}
 	/**

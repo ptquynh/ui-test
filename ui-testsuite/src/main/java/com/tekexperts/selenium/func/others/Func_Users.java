@@ -78,7 +78,7 @@ public class Func_Users extends TestConfig{
 		sumDashboard.verifySaleRepInList(fullName);
 		
 		
-		info("Go to Dashboard home page");
+		/*info("Go to Dashboard home page");
 		navMenu.goToDashboard();
 		info("Go to Lost dashboard");
 		dashboard.goToLostDashboard();
@@ -103,7 +103,7 @@ public class Func_Users extends TestConfig{
 		navMenu.goToDashboard();
 		info("Go to Renewal dashboard");
 		dashboard.goToRenewalRate();
-		renewalDash.verifySaleRepInList(fullName);
+		renewalDash.verifySaleRepInList(fullName);*/
 	}
 	/**
 	* Test case ID:VAN-1545
@@ -186,7 +186,7 @@ public class Func_Users extends TestConfig{
 		sumDashboard.verifySaleRepInList(fullName);
 		
 		
-		info("Go to Dashboard home page");
+		/*info("Go to Dashboard home page");
 		navMenu.goToDashboard();
 		info("Go to Lost dashboard");
 		dashboard.goToLostDashboard();
@@ -210,7 +210,7 @@ public class Func_Users extends TestConfig{
 		navMenu.goToDashboard();
 		info("Go to Renewal dashboard");
 		dashboard.goToRenewalRate();
-		renewalDash.verifySaleRepInList(fullName);
+		renewalDash.verifySaleRepInList(fullName);*/
 	}
 		
 		/**
@@ -1267,7 +1267,7 @@ public class Func_Users extends TestConfig{
 		mgLogInOut.signIn(hpID, USER_PASS);
 		info("Open user profile page");
 		navMenu.goToUserProfile();
-		info("Verify that the credential is shown in the user profile page");
+		info("Verify that the credential is not shown in the user profile page");
 		userPro.verifyUserNOTInfor("WW");
 		userPro.verifyUserNOTInfor("All");
 		userPro.verifyUserNOTInfor("All");
