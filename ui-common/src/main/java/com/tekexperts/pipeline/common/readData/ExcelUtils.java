@@ -17,8 +17,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.ss.util.NumberToTextConverter;
 
-import static com.tekexperts.pipeline.common.TestLogger.info;
-
 public class ExcelUtils {
 	private static Sheet ExcelWSheet;
 	private static Workbook ExcelWBook;
@@ -56,8 +54,8 @@ public class ExcelUtils {
 		int xCols = ExcelWSheet.getRow(0).getLastCellNum();
 		//int nRow = 1;
 		Iterator<Row> iterator=ExcelWSheet.iterator();
-		info("xRows:"+xRows);
-		info("xCols:"+xCols);
+		//info("xRows:"+xRows);
+		//info("xCols:"+xCols);
 		String[][] xData = new String[xRows][xCols];
 		
 		while(iterator.hasNext()){
@@ -65,7 +63,7 @@ public class ExcelUtils {
 			Iterator<Cell> cellIterator=nextRow.cellIterator();
 			int i=nextRow.getRowNum();
 			int j=0;
-			info("i:"+i);
+			//info("i:"+i);
 			while(cellIterator.hasNext()){
 				Cell cell = cellIterator.next();
 				if(i>0){
@@ -99,15 +97,15 @@ public class ExcelUtils {
 		try {
 			Cell cell = null; 
 			for(int j=0;j<rowList.size();j++){
-				info("j:"+j);
-				info("rowList.size():"+rowList.size());
+			//	info("j:"+j);
+				//info("rowList.size():"+rowList.size());
 				// declare a Cell object 
 				for(int i=0;i<cellNum.size();i++){
-					info("i:"+i);
+					/*info("i:"+i);
 					info("cellNum.size():"+cellNum.size());
 					info("rowList.get(j):"+rowList.get(j));
 					info("cellNum.get(i):"+cellNum.get(i));
-					info("updateValue.get(i):"+updateValue.get(i));
+					info("updateValue.get(i):"+updateValue.get(i));*/
 					//Cell cell = null; 
 		            cell = ExcelWSheet.getRow(rowList.get(j)).getCell(cellNum.get(i));
 		            if(cell==null)

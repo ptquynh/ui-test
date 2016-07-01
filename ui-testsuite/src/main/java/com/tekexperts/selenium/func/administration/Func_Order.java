@@ -2699,7 +2699,7 @@ public class Func_Order extends TestConfig{
 				info("Create rule:"+i);
 				superregionList.add(assignData.getSuperRegionByType(i));
 				regionList.add(assignData.getRegionByType(i));
-				countryList.add(assignData.getCountryByType(i));
+				countryList.add("");
 				businessList.add(assignData.getBusinessUnitByType(i));
 				productList.add(assignData.getProductLineByType(i));
 				shipToList.add(assignData.getShipToAMIDByType(i));
