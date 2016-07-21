@@ -443,6 +443,7 @@ public class Contracts extends PipelineBase{
 		if(isVerify)
 			verifyContractInTable(fileName);
 	}
+	
 	/**
 	 * Verify that a contract is shown in the table
 	 * @param fileName
@@ -533,6 +534,25 @@ public class Contracts extends PipelineBase{
 			waitForAndGetElement(ELEMENT_DATAIMPORT_ATR_VIEWDETAIL_STATUS_CONTRACT.replace("$expDocNbr",expDocNbrList.get(i)),3000,1);
 		}
 	}
+	/**
+	 * Compare array error messages
+	 * @param sourcelist
+	 */
+	public void compareErrors(ArrayList<String> sourcelist){
+		String text = driver.findElement(By.xpath(".//*[@id='NotificationBox']")).getText();
+		String[] realList=text.split("\n");
+		for(int i=0;i<realList.length;i++){
+			info("realList:"+realList[i]);
+			info("sourcelist:"+sourcelist.get(i));
+			String errorMesg=realList[i].trim();
+			if(!errorMesg.equalsIgnoreCase(sourcelist.get(i))) {
+				info("realList is not equal:"+realList[i]);
+				info("sourcelist is not equal:"+sourcelist.get(i));
+				assert false;
+			}
+		}
+	}
+	
 	/**
 	 * Check the message on notificaiton box
 	 * @param message

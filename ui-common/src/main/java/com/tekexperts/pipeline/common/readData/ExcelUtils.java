@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import static com.tekexperts.pipeline.common.TestLogger.info;
 
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.ss.usermodel.Cell;
@@ -79,7 +80,7 @@ public class ExcelUtils {
 						if(value!=null)
 						xData[i][j] = value;
 					}
-					//info("xData["+i+"]["+j+"]:"+xData[i][j]);
+					info("xData["+i+"]["+j+"]:"+xData[i][j]);
 				}
 				
 			}
