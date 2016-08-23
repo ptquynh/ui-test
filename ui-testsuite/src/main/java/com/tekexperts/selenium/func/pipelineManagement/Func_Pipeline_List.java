@@ -49,7 +49,7 @@ public class Func_Pipeline_List extends TestConfig{
 		String fileName2= fData.getAttachFileByArrayTypeRandom(11);
 		String path1=PATH_TESTDATA+fileName1;
 		String path2=PATH_TESTDATA+fileName2;
-		
+		String nameCol="ExpDocNbr";
 		int colExpDocNbr=5;
 		int colSaleRep=81;
 		int colEployeeID=82;
@@ -83,9 +83,9 @@ public class Func_Pipeline_List extends TestConfig{
 		contract.checkStatus(status.SUCCESS, expDocNbr);
 		info("Open pipeline list page");
 		navMenu.goToPipeline();
-		pipeList.search(colExpDocNbr,expDocNbr);
-		Utils.pause(3000);
-		pipeList.checkAllColumnInPipelist(expDocNbr);
+		pipeList.search(nameCol,expDocNbr);
+		//Utils.pause(3000);
+		//pipeList.checkAllColumnInPipelist(expDocNbr);
 		info("Verify that the contract is displayed in the table");
 		pipeList.verifyContractInList(expDocNbr);
 		listDataBeforeUpdate=pipeList.getData(expDocNbr);
@@ -98,13 +98,13 @@ public class Func_Pipeline_List extends TestConfig{
 		mgLogInOut.signIn(userRSR,USER_PASS);
 		info("Open pipeline list page");
 		navMenu.goToPipeline();
-		pipeList.search(colExpDocNbr,expDocNbr);
-		Utils.pause(3000);
-		pipeList.checkAllColumnInPipelist(expDocNbr);
-		Utils.pause(3000);
+		pipeList.search(nameCol,expDocNbr);
+		//Utils.pause(3000);
+		//pipeList.checkAllColumnInPipelist(expDocNbr);
+		//Utils.pause(3000);
 		info("Upload a ATR to execute mass update");
 		pipeList.importATR(path2);
-		pipeList.search(colExpDocNbr,expDocNbr);
+		pipeList.search(nameCol,expDocNbr);
 		listDataAfterUpdate=pipeList.getData(expDocNbr);
 		info("listDataAfterUpdate:"+listDataAfterUpdate);
 		info("Verify that only blue field is updated via mass update");

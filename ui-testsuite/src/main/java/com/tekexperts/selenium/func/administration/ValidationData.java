@@ -600,7 +600,6 @@ public class ValidationData extends TestConfig{
 			Row 95 :[Underforecast Or Upsell Reason] is invalid data.
 			Row 96 :[CAM RISK] is invalid data.
 			Row 98 :[CAM RISK] is invalid data.
-
 		*/
 		@Test
 		public void VAN2234_CheckFormatFieldsForAnniversaryContracts(){
@@ -671,7 +670,7 @@ public class ValidationData extends TestConfig{
 			info("Check format fields for Renewal Contracts");
 			info("Prepare data test");
 			String fileName= fData.getAttachFileByArrayTypeRandom(78);
-			ArrayList<String> arrayErrors= getSourceErrorList(89,123);
+			ArrayList<String> arrayErrors= getSourceErrorList(88,122);
 			info("Go to Data import");
 			navMenu.goToDataImport();
 			dataImportHome.goToATR();
@@ -731,7 +730,7 @@ public class ValidationData extends TestConfig{
 			info("Check required fields for Anniversary Contracts");
 			info("Prepare data test");
 			String fileName= fData.getAttachFileByArrayTypeRandom(77);
-			ArrayList<String> arrayErrors= getSourceErrorList(25,88);
+			ArrayList<String> arrayErrors= getSourceErrorList(59,87);
 			info("Go to Data import");
 			navMenu.goToDataImport();
 			dataImportHome.goToATR();
@@ -794,7 +793,7 @@ public class ValidationData extends TestConfig{
 			info("Check required fields for Renewal Contracts");
 			info("Prepare data test");
 			String fileName= fData.getAttachFileByArrayTypeRandom(76);
-			ArrayList<String> arrayErrors= getSourceErrorList(25,57);
+			ArrayList<String> arrayErrors= getSourceErrorList(25,58);
 			info("Go to Data import");
 			navMenu.goToDataImport();
 			dataImportHome.goToATR();

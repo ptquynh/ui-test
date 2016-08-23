@@ -21,7 +21,7 @@ public class AssignmentRules extends PipelineBase{
 	//Add button
 	public By ELEMENT_DATAIMPORT_ASSIGNMENTRULE_ADD_BTN=By.xpath(".//*[@id='right-side']//*[@href='/AssignmentRule/Create?Length=14']");
 	//****************************BREADCRUMB************************************************\\
-	public By ELEMENT_DATAIMPORT_ASSIGNMENTRULE_BREADCRUMB_DATAIMPORT=By.xpath(".//*[@id='right-side']//*[@href='/ControlPanel/Account']");
+	public By ELEMENT_DATAIMPORT_ASSIGNMENTRULE_BREADCRUMB_DATAIMPORT=By.xpath(".//*[@id='right-side']//*[@href='/ControlPanel/ImportData']");
 	public By ELEMENT_DATAIMPORT_ASSIGNMENTRULE_BREADCRUMB_ADMINISTRATION=By.xpath(".//*[@id='right-side']//*[@href='/'][contains(text(),'Administration')]");
 	public By ELEMENT_DATAIMPORT_ASSIGNMENTRULE_BREADCRUMB_HOME=By.xpath(".//*[@id='right-side']//*[@href='/'][contains(text(),'Home')]");
 	//***************************ADD/EDIT ASSIGNMENT RULE************************************\\

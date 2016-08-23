@@ -440,6 +440,7 @@ public class Contracts extends PipelineBase{
 		info("Click on Import button");
 		click(ELEMENT_DATAIMPORT_ATR_IMPORT_BTN);
 		Utils.pause(3000);
+		//String text= 
 		if(isVerify)
 			verifyContractInTable(fileName);
 	}
@@ -542,12 +543,11 @@ public class Contracts extends PipelineBase{
 		String text = driver.findElement(By.xpath(".//*[@id='NotificationBox']")).getText();
 		String[] realList=text.split("\n");
 		for(int i=0;i<realList.length;i++){
-			info("realList:"+realList[i]);
-			info("sourcelist:"+sourcelist.get(i));
-			String errorMesg=realList[i].trim();
-			if(!errorMesg.equalsIgnoreCase(sourcelist.get(i))) {
-				info("realList is not equal:"+realList[i]);
-				info("sourcelist is not equal:"+sourcelist.get(i));
+			String realErrorMesg=realList[i].trim();
+			String sourceErrorMesg=sourcelist.get(i).trim();
+			if(!realErrorMesg.equalsIgnoreCase(sourceErrorMesg)) {
+				info("realList is: "+realErrorMesg);
+				info("sourcelist is:"+sourceErrorMesg);
 				assert false;
 			}
 		}

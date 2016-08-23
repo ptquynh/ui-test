@@ -107,6 +107,28 @@ public class UserDatabase {
 	}
 	
 	/**
+	 * Get HPID by random
+	 * @param type
+	 * @return
+	 */
+	public String getPassByArrayTypeRandom(int...type){
+		ArrayList<String> arrayID = new ArrayList<String>();
+		Random randomGenerator = new Random();
+		for (int j = 0; j<type.length; j++){
+			for(int i = 0; i<this.type.size(); i++)
+			{	
+				if(this.type.get(i) == type[j]) {
+					arrayID.add(this.password.get(i));
+				}
+			}
+		}
+		int index = randomGenerator.nextInt(arrayID.size());
+		String attachPass = arrayID.get(index);
+		info("AttachPass is: "+attachPass);
+		return attachPass;
+	}
+	
+	/**
 	 * Get username by random
 	 * @param type
 	 * @return names

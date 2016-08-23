@@ -52,6 +52,7 @@ public class Func_ATR extends TestConfig{
 	@Test
 	public void VAN1667_ImportATRWithExistedOppotunityIDInTheSystem() throws Exception{
 		info("Import ATR with existed Oppotunity ID in the system");
+		String nameCol="ExpDocNbr";
 		info("Prepare data test");
 		int colExpDocNbr=5;
 		int colOpptID=102;
@@ -76,9 +77,8 @@ public class Func_ATR extends TestConfig{
 		
 		info("Open pipeline list page");
 		navMenu.goToPipeline();
-		pipeList.search(colExpDocNbr,expDocNbr);
-		Utils.pause(3000);
-		pipeList.checkAllColumnInPipelist(expDocNbr);
+		pipeList.search(nameCol,expDocNbr);
+		//pipeList.checkAllColumnInPipelist(expDocNbr);
 		info("Verify that the contract is displayed in the table");
 		pipeList.verifyContractInList(expDocNbr);
 		info("Get quote number of the contract before updated");
@@ -100,7 +100,9 @@ public class Func_ATR extends TestConfig{
 		
 		info("Open pipeline list page");
 		navMenu.goToPipeline();
-		pipeList.search(colExpDocNbr,expDocNbr);
+		//pipeList.clearFilter();
+	//	Utils.pause(5000);
+		pipeList.search(nameCol,expDocNbr);
 		Utils.pause(3000);
 		info("Verify that the contract is displayed in the table");
 		pipeList.verifyContractInList(expDocNbr);
@@ -135,6 +137,7 @@ public class Func_ATR extends TestConfig{
 	@Test
 	public void VAN1666_ImportATRWithNoBlankAndNoExistedOppotunityID() throws Exception{
 		info("Import ATR with no blank and no existed Oppotunity ID");
+		String nameCol="ExpDocNbr";
 		String message = mesg.getContentByType(21);
 		String file = fData.getAttachFileByArrayTypeRandom(22);
 		String path1=PATH_TESTDATA+file;
@@ -150,7 +153,11 @@ public class Func_ATR extends TestConfig{
 		contract.verifyMessageNotification(message);
 		info("Go to Pipeline list");
 		navMenu.goToPipeline();
-		pipeList.search(5,expDocNbr);
+		//pipeList.clearFilter();
+		//Utils.pause(5000);
+		pipeList.search(nameCol,expDocNbr);
+		info("Verify that the contract isnot displayed in the table");
+		pipeList.verifyContractNOTInList(expDocNbr);
 	}
 		
 		/**
@@ -180,6 +187,7 @@ public class Func_ATR extends TestConfig{
 	@Test
 	public void VAN1665_ImportATRWithBlankOppotunityID() throws Exception{
 		info("Import ATR with blank Oppotunity ID");
+		String nameCol="ExpDocNbr";
 		String file = fData.getAttachFileByArrayTypeRandom(14);
 		ATRFilePath = PATH_TESTDATA+file;
 		ATRDatabase atrData= new ATRDatabase();
@@ -198,7 +206,11 @@ public class Func_ATR extends TestConfig{
 		contract.checkStatus(status.SUCCESS, expDocNbr);
 		info("Go to Pipeline list");
 		navMenu.goToPipeline();
-		pipeList.search(5,expDocNbr);
+		//pipeList.clearFilter();
+	//	Utils.pause(5000);
+		pipeList.search(nameCol,expDocNbr);
+		info("Verify that the contract isnot displayed in the table");
+		pipeList.verifyContractNOTInList(expDocNbr);
 	}
 		
 		/**
@@ -228,6 +240,14 @@ public class Func_ATR extends TestConfig{
 	@Test
 	public void VAN1664_ImportATRWithExistedRegionBusinessUnitRTMInTheSystem() throws Exception{
 		info("Import ATR with existed Region/Business Unit/RTM in the system");
+		String nameCol="ExpDocNbr";
+		String message1 = mesg.getContentByType(213).replace("$N","2");
+		String message2 = mesg.getContentByType(217).replace("$N","2");
+		String message3 = mesg.getContentByType(214).replace("$N","2");
+		ArrayList<String> arrayErrors= new ArrayList<String>();
+		arrayErrors.add(message1);
+		arrayErrors.add(message2);
+		arrayErrors.add(message3);
 		String file = fData.getAttachFileByArrayTypeRandom(20);
 		ATRFilePath = PATH_TESTDATA+file;
 		ATRDatabase atrData= new ATRDatabase();
@@ -240,13 +260,15 @@ public class Func_ATR extends TestConfig{
 		dataImportHome.goToATR();
 		info("Import a unassigned contract");
 		contract.upload(PATH_TESTDATA, file);
-		info("Open detail contract");
-		contract.goToViewDetail();
-		info("Verify the contract is imported successfully with No RTM Unit status");
-		contract.checkStatus(status.NORTM, expDocNbr);
+		info("A error message is displayed");
+		contract.compareErrors(arrayErrors);
 		info("Go to Pipeline list");
 		navMenu.goToPipeline();
-		pipeList.search(5,expDocNbr);
+		//pipeList.clearFilter();
+		//Utils.pause(5000);
+		pipeList.search(nameCol,expDocNbr);
+		info("Verify that the contract isnot displayed in the table");
+		pipeList.verifyContractNOTInList(expDocNbr);
 	}
 		
 		/**
@@ -276,6 +298,14 @@ public class Func_ATR extends TestConfig{
 	@Test
 	public void VAN1663_ImportATRWithOnlyExistedRegionAndBusinessUnitInTheSystem() throws Exception{
 		info("Import ATR with only existed Region and Business Unit in the system");
+		String nameCol="ExpDocNbr";
+		String message1 = mesg.getContentByType(213).replace("$N","2");
+		String message2 = mesg.getContentByType(217).replace("$N","2");
+		String message3 = mesg.getContentByType(214).replace("$N","2");
+		ArrayList<String> arrayErrors= new ArrayList<String>();
+		arrayErrors.add(message1);
+		arrayErrors.add(message2);
+		arrayErrors.add(message3);
 		String file = fData.getAttachFileByArrayTypeRandom(19);
 		ATRFilePath = PATH_TESTDATA+file;
 		ATRDatabase atrData= new ATRDatabase();
@@ -288,13 +318,15 @@ public class Func_ATR extends TestConfig{
 		dataImportHome.goToATR();
 		info("Import a unassigned contract");
 		contract.upload(PATH_TESTDATA, file);
-		info("Open detail contract");
-		contract.goToViewDetail();
-		info("Verify the contract is imported successfully with No Business Unit status");
-		contract.checkStatus(status.NOBUSINESSUNIT, expDocNbr);
+		info("A error message is displayed");
+		contract.compareErrors(arrayErrors);
 		info("Go to Pipeline list");
 		navMenu.goToPipeline();
-		pipeList.search(5,expDocNbr);
+		//pipeList.clearFilter();
+		//Utils.pause(5000);
+		pipeList.search(nameCol,expDocNbr);
+		info("Verify that the contract isnot displayed in the table");
+		pipeList.verifyContractNOTInList(expDocNbr);
 	}
 		
 		/**
@@ -320,7 +352,10 @@ public class Func_ATR extends TestConfig{
 	@Test
 	public void VAN1662_ImportATRWithNoExistedRTMInTheSystem() throws Exception{
 		info("Import ATR with No existed RTM in the system");
-		String message = mesg.getContentByType(23);
+		String nameCol="ExpDocNbr";
+		String message1 = mesg.getContentByType(215).replace("$N","2");
+		ArrayList<String> arrayErrors= new ArrayList<String>();
+		arrayErrors.add(message1);
 		String file = fData.getAttachFileByArrayTypeRandom(21);
 		ATRFilePath = PATH_TESTDATA+file;
 		ATRDatabase atrData= new ATRDatabase();
@@ -334,10 +369,14 @@ public class Func_ATR extends TestConfig{
 		info("Import a unassigned contract");
 		contract.upload(PATH_TESTDATA, file,false);
 		info("A error message is displayed");
-		contract.verifyMessageNotification(message);
+		contract.compareErrors(arrayErrors);
 		info("Go to Pipeline list");
 		navMenu.goToPipeline();
-		pipeList.search(5,expDocNbr);
+		//pipeList.clearFilter();
+		//Utils.pause(5000);
+		pipeList.search(nameCol,expDocNbr);
+		info("Verify that the contract isnot displayed in the table");
+		pipeList.verifyContractNOTInList(expDocNbr);
 	}
 		
 		/**
@@ -365,7 +404,12 @@ public class Func_ATR extends TestConfig{
 	@Test
 	public void VAN1661_ImportATRWithNoExistedBusinessUnitInTheSystem() throws Exception{
 		info("Import ATR with no existed Business Unit in the system");
-		String message = mesg.getContentByType(24);
+		String nameCol="ExpDocNbr";
+		String message1 = mesg.getContentByType(218).replace("$N","2");
+		String message2 = mesg.getContentByType(214).replace("$N","2");
+		ArrayList<String> arrayErrors= new ArrayList<String>();
+		arrayErrors.add(message1);
+		arrayErrors.add(message2);
 		String file = fData.getAttachFileByArrayTypeRandom(17);
 		ATRFilePath = PATH_TESTDATA+file;
 		ATRDatabase atrData= new ATRDatabase();
@@ -379,10 +423,14 @@ public class Func_ATR extends TestConfig{
 		info("Import a unassigned contract");
 		contract.upload(PATH_TESTDATA, file,false);
 		info("A error message is displayed");
-		contract.verifyMessageNotification(message);
+		contract.compareErrors(arrayErrors);
 		info("Go to Pipeline list");
 		navMenu.goToPipeline();
-		pipeList.search(5,expDocNbr);
+		//pipeList.clearFilter();
+		//Utils.pause(5000);
+		pipeList.search(nameCol,expDocNbr);
+		info("Verify that the contract isnot displayed in the table");
+		pipeList.verifyContractNOTInList(expDocNbr);
 	}
 		
 		/**
@@ -410,7 +458,10 @@ public class Func_ATR extends TestConfig{
 	@Test
 	public void VAN1660_ImportATRWithNoExistedRegionInTheSystem() throws Exception{
 		info("Import ATR with no existed Region in the system");
-		String message = mesg.getContentByType(20);
+		String nameCol="ExpDocNbr";
+		String message1 = mesg.getContentByType(213).replace("$N","2");
+		ArrayList<String> arrayErrors= new ArrayList<String>();
+		arrayErrors.add(message1);
 		String file = fData.getAttachFileByArrayTypeRandom(18);
 		ATRFilePath = PATH_TESTDATA+file;
 		ATRDatabase atrData= new ATRDatabase();
@@ -424,10 +475,14 @@ public class Func_ATR extends TestConfig{
 		info("Import a unassigned contract");
 		contract.upload(PATH_TESTDATA, file,false);
 		info("A error message is displayed");
-		contract.verifyMessageNotification(message);
+		contract.compareErrors(arrayErrors);
 		info("Go to Pipeline list");
 		navMenu.goToPipeline();
-		pipeList.search(5,expDocNbr);
+		//pipeList.clearFilter();
+		//Utils.pause(5000);
+		pipeList.search(nameCol,expDocNbr);
+		info("Verify that the contract isnot displayed in the table");
+		pipeList.verifyContractNOTInList(expDocNbr);
 	}
 		
 		/**
@@ -453,8 +508,13 @@ public class Func_ATR extends TestConfig{
 	@Test
 	public void VAN1659_ImportATRWithBlankRegionRTMBusinessUnit() throws Exception{
 		info("Import ATR with blank Region/RTM/Business Unit");
-		String message = mesg.getContentByType(20);
-		String message1 = mesg.getContentByType(23);
+		String message1 = mesg.getContentByType(213).replace("$N","2");
+		String message2 = mesg.getContentByType(215).replace("$N","3");
+		String message3 = mesg.getContentByType(216).replace("$N","4");
+		ArrayList<String> arrayErrors= new ArrayList<String>();
+		arrayErrors.add(message1);
+		arrayErrors.add(message2);
+		arrayErrors.add(message3);
 		String file = fData.getAttachFileByArrayTypeRandom(15);
 		ATRFilePath = PATH_TESTDATA+file;
 		ATRDatabase atrData= new ATRDatabase();
@@ -465,10 +525,9 @@ public class Func_ATR extends TestConfig{
 		navMenu.goToDataImport();
 		info("Go to ATR page");
 		dataImportHome.goToATR();
-		info("Import a unassigned contract");
+		info("Import a  contract");
 		contract.upload(PATH_TESTDATA, file,false);
-		contract.verifyMessageNotification(message);
-		contract.verifyMessageNotification(message1);
+		contract.compareErrors(arrayErrors);
 	}
 		
 		/**
@@ -529,13 +588,13 @@ public class Func_ATR extends TestConfig{
 			i++;
 		}
 		unassignATR.searchBy(UnassignedCol.ExpDocNbr,expDocNbr);
-		info("Select all contracts ");
-		unassignATR.selectAllCheckbox();
-		info("Open Assign RSR contract");
-		unassignATR.goToAssignRSR();
-		info("Assign a RSR");
-		assignRSR.selectRSR(name);
-		assignRSR.assign();
+		//info("Select all contracts ");
+		//unassignATR.selectAllCheckbox();
+		//info("Open Assign RSR contract");
+	//	unassignATR.goToAssignRSR();
+	//	info("Assign a RSR");
+		//assignRSR.selectRSR(name);
+	//	assignRSR.assign();
 		unassignATR.verifyContractNOTAvailableInTable(expDocNbr);
 	}
 		
@@ -686,13 +745,14 @@ public class Func_ATR extends TestConfig{
 			info("Prepare data test");
 			String message = mesg.getContentByType(19);
 			String userRSR = userData.getIDByArrayTypeRandom(2);
+			String userpass= userData.getPassByArrayTypeRandom(2);
 			String userNameRSR = userData.getNameByArrayTypeRandom(2);
 			String expDocNbr= getLongRandomNumber();
 			String fileName1= fData.getAttachFileByArrayTypeRandom(67);
 			String fileName2= fData.getAttachFileByArrayTypeRandom(68);
 			String path1=PATH_TESTDATA+fileName1;
 			String path2=PATH_TESTDATA+fileName2;
-			
+			String nameCol="ExpDocNbr";
 			int colExpDocNbr=5;
 			int colSaleRep=81;
 			int colEployeeID=82;
@@ -724,9 +784,11 @@ public class Func_ATR extends TestConfig{
 			contract.checkStatus(status.SUCCESS, expDocNbr);
 			info("Open pipeline list page");
 			navMenu.goToPipeline();
-			pipeList.search(colExpDocNbr,expDocNbr);
+			//pipeList.clearFilter();
+			//Utils.pause(5000);
+			pipeList.search(nameCol,expDocNbr);
 			Utils.pause(3000);
-			pipeList.checkAllColumnInPipelist(expDocNbr);
+			//pipeList.checkAllColumnInPipelist(expDocNbr);
 			info("Verify that the contract is displayed in the table");
 			pipeList.verifyContractInList(expDocNbr);
 			info("Update Oppt Id for second upload file");
@@ -734,10 +796,12 @@ public class Func_ATR extends TestConfig{
 			upData.update(path2,defaultSheet,1,colOpptID,opptID,isUseFile);
 			
 			mgLogInOut.signOut();
-			mgLogInOut.signIn(userRSR,USER_PASS);
+			mgLogInOut.signIn(userRSR,userpass);
 			info("Open pipeline list page");
 			navMenu.goToPipeline();
-			pipeList.search(colExpDocNbr,expDocNbr);
+			//pipeList.clearFilter();
+			//Utils.pause(5000);
+			pipeList.search(nameCol,expDocNbr);
 			Utils.pause(3000);
 			info("Upload a ATR to execute mass update");
 			pipeList.importATR(path2);
@@ -778,12 +842,13 @@ public class Func_ATR extends TestConfig{
 			info("Prepare data test");
 			String userRSR = userData.getIDByArrayTypeRandom(3);
 			String userNameRSR = userData.getNameByArrayTypeRandom(3);
+			String userpass= userData.getPassByArrayTypeRandom(3);
 			String expDocNbr= getLongRandomNumber();
 			String fileName1= fData.getAttachFileByArrayTypeRandom(67);
 			String fileName2= fData.getAttachFileByArrayTypeRandom(68);
 			String path1=PATH_TESTDATA+fileName1;
 			String path2=PATH_TESTDATA+fileName2;
-			
+			String nameCol="ExpDocNbr";
 			int colExpDocNbr=5;
 			int colSaleRep=81;
 			int colEployeeID=82;
@@ -815,9 +880,11 @@ public class Func_ATR extends TestConfig{
 			contract.checkStatus(status.SUCCESS, expDocNbr);
 			info("Open pipeline list page");
 			navMenu.goToPipeline();
-			pipeList.search(colExpDocNbr,expDocNbr);
+			//pipeList.clearFilter();
+			//Utils.pause(5000);
+			pipeList.search(nameCol,expDocNbr);
 			Utils.pause(3000);
-			pipeList.checkAllColumnInPipelist(expDocNbr);
+			//pipeList.checkAllColumnInPipelist(expDocNbr);
 			info("Verify that the contract is displayed in the table");
 			pipeList.verifyContractInList(expDocNbr);
 			info("Get quote number of the contract before updated");
@@ -827,10 +894,12 @@ public class Func_ATR extends TestConfig{
 			upData.update(path2,defaultSheet,1,colOpptID,opptID,isUseFile);
 			
 			mgLogInOut.signOut();
-			mgLogInOut.signIn(userRSR,USER_PASS);
+			mgLogInOut.signIn(userRSR,userpass);
 			info("Open pipeline list page");
 			navMenu.goToPipeline();
-			pipeList.search(colExpDocNbr,expDocNbr);
+			//pipeList.clearFilter();
+			//Utils.pause(5000);
+			pipeList.search(nameCol,expDocNbr);
 			Utils.pause(3000);
 			info("Verify that the contract is displayed in the table");
 			pipeList.verifyContractInList(expDocNbr);
@@ -876,6 +945,7 @@ public class Func_ATR extends TestConfig{
 			info("Prepare data test");
 			int colExpDocNbr=5;
 			int colOpptID=102;
+			String nameCol="ExpDocNbr";
 			String expDocNbr= getLongRandomNumber();
 			String fileName1= fData.getAttachFileByArrayTypeRandom(67);
 			String fileName2= fData.getAttachFileByArrayTypeRandom(68);
@@ -897,7 +967,10 @@ public class Func_ATR extends TestConfig{
 			
 			info("Open pipeline list page");
 			navMenu.goToPipeline();
-			pipeList.search(colExpDocNbr,expDocNbr);
+			pipeList.clearFilter();
+			Utils.pause(5000);
+			pipeList.selectValidForQ("ALL");
+			pipeList.search(nameCol,expDocNbr);
 			Utils.pause(3000);
 			pipeList.checkAllColumnInPipelist(expDocNbr);
 			info("Verify that the contract is displayed in the table");
@@ -921,7 +994,11 @@ public class Func_ATR extends TestConfig{
 			
 			info("Open pipeline list page");
 			navMenu.goToPipeline();
-			pipeList.search(colExpDocNbr,expDocNbr);
+			pipeList.clearFilter();
+			Utils.pause(5000);
+			pipeList.selectValidForQ("ALL");
+			Utils.pause(5000);
+			pipeList.search(nameCol,expDocNbr);
 			Utils.pause(3000);
 			info("Verify that the contract is displayed in the table");
 			pipeList.verifyContractInList(expDocNbr);
@@ -1114,11 +1191,12 @@ public class Func_ATR extends TestConfig{
 			info("Upload a correct ATR file");
 			contract.upload(PATH_TESTDATA,fileName);
 			Utils.pause(3000);
+			String textSearch= fileName.split("\\.")[0];
 			String date = getCurrentDate("MMM d yyyy");
 			contract.searchBy(contractFilter.UPLOAD_BY,USER_ROOT_FULLNAME);
 			contract.searchBy(contractFilter.UPLOAD_DATE,date);
 			contract.searchBy(contractFilter.FILE_SIZE,"13");
-			contract.verifyContractInTable(fileName);
+			contract.verifyContractInTable(textSearch);
 		}
 		/**
 		* Test case ID:VAN-1564
@@ -1153,8 +1231,9 @@ public class Func_ATR extends TestConfig{
 			info("Upload a correct ATR file");
 			contract.upload(PATH_TESTDATA,fileName);
 			Utils.pause(3000);
+			String textSearch= fileName.split("\\.")[0];
 			contract.searchBy(contractFilter.UPLOAD_BY,USER_ROOT_FULLNAME);
-			contract.verifyContractInTable(fileName);
+			contract.verifyContractInTable(textSearch);
 		}
 		/**
 		* Test case ID:VAN-1563
@@ -1226,8 +1305,9 @@ public class Func_ATR extends TestConfig{
 			info("Upload a correct ATR file");
 			contract.upload(PATH_TESTDATA,fileName);
 			Utils.pause(3000);
+			String textSearch= fileName.split("\\.")[0];
 			contract.searchBy(contractFilter.FILE_SIZE,"13");
-			contract.verifyContractInTable(fileName);
+			contract.verifyContractInTable(textSearch);
 		}
 		/**
 		* Test case ID:VAN-1561
@@ -1262,8 +1342,12 @@ public class Func_ATR extends TestConfig{
 			info("Upload a correct ATR file");
 			contract.upload(PATH_TESTDATA,fileName);
 			Utils.pause(3000);
-			contract.searchBy(contractFilter.FILE_NAME,fileName);
-			contract.verifyContractInTable(fileName);
+			
+			String textSearch= fileName.split("\\.")[0];
+			info("textSearch:"+fileName.split("\\.")[0]);
+			info("textSearch1:"+fileName.split("\\.")[1]);
+			contract.searchBy(contractFilter.FILE_NAME,textSearch);
+			contract.verifyContractInTable(textSearch);
 		}
 		/**
 		* Test case ID:VAN-1560

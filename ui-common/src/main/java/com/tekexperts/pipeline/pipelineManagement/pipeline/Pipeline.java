@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -18,22 +19,24 @@ public class Pipeline extends PipelineBase{
 	public By ELEMENT_PIPELINE_LIST_CHOOSE_BTN=By.xpath(".//*[@id='frmMassupdate']//input[@name='fileUpload']");
 	public By ELEMENT_PIPELINE_LIST_MASSUPDATE_IMPORT_BTN=By.xpath(".//*[@id='btnImportMassUpdate']");
 	
+	//Clear filter
+	public By ELEMENT_PIPELINE_LIST_CLEAR_FILTER_BTN=By.xpath(".//*[@id='btnClearFilters']");
 	//Pipeline list
 	public By ELEMENT_PIPELINE_LIST=By.xpath(".//*[@id='gvPipeline']");
-	public String ELEMENT_PIPELINE_DATA_ROW=".//*[@id='gvPipeline_DXDataRow$number']";
-	public String ELEMENT_PIPELINE_COLUMN_CONTENT=".//*[@id='gvPipeline_DXMainTable']//*[contains(text(),'$contract')]/..//*[@col-index='$number'][contains(text(),'$content')]";
-	public String ELEMENT_PIPELINE_COLUMN_CONTENT_2=".//*[@id='gvPipeline_DXMainTable']//*[contains(text(),'$contract')]/..//*[@col-index='$number'][contains(text(),'$content1')]/..//*[contains(text(),'$content2')]";
+	public String ELEMENT_PIPELINE_DATA_ROW=".//*[@id='gridPipeline']//tr[$number]";
+	public String ELEMENT_PIPELINE_COLUMN_CONTENT=".//*[@id='gridPipeline']//*[contains(text(),'$contract')]/..//td[$number][contains(text(),'$content')]";
+	public String ELEMENT_PIPELINE_COLUMN_CONTENT_2=".//*[@id='gridPipeline']//*[contains(text(),'$contract')]/..//td[$number][contains(text(),'$content1')]/..//*[contains(text(),'$content2')]";
 	public String ELEMENT_PIPELINE_COLUMN_HEADER_LABEL=".//*[@id='gvPipeline_DXHeadersRow$number']//*[contains(text(),'$label')]";
 	
 	//Import button
 	public By ELEMENT_PIPELINE_LIST_IMPORT_BTN=By.xpath(".//*[@id='btnImport']");
 	//Pipeline list content
-	public String ELEMENT_PIPELINE_LIST_DATA=".//*[@id='gvPipeline_DXMainTable']//*[contains(text(),'$data')]";
+	public String ELEMENT_PIPELINE_LIST_DATA=".//*[@id='gridPipeline']//*[contains(text(),'$data')]";
 	//Oppt ID data of a contract
-	public String ELEMENT_PIPELINE_LIST_OPPTYID=".//*[@id='gvPipeline_DXMainTable']//*[contains(text(),'$contract')]/..//*[contains(@id,'cell_OpptyID')]";
-	public String ELEMENT_PIPELINE_LIST_LOSTREASON=".//*[@id='gvPipeline_DXMainTable']//*[contains(text(),'$contract')]/..//*[contains(@id,'cell_LostReason')]";
-	public String ELEMENT_PIPELINE_LIST_SHIPTONAME=".//*[@id='gvPipeline_DXMainTable']//*[contains(text(),'$contract')]/..//*[contains(@id,'cell_ShipToName')]";
-	public String ELEMENT_PIPELINE_LIST_DATA_BY_COL_INDEX=".//*[@id='gvPipeline_DXMainTable']//*[contains(text(),'$contract')]/..//*[@col-index='$number']";
+	public String ELEMENT_PIPELINE_LIST_OPPTYID=".//*[@id='gridPipeline']//*[contains(text(),'$contract')]/..//*[contains(@id,'cell_OpptyID')]";
+	public String ELEMENT_PIPELINE_LIST_LOSTREASON=".//*[@id='gridPipeline']//*[contains(text(),'$contract')]/..//*[contains(@id,'cell_LostReason')]";
+	public String ELEMENT_PIPELINE_LIST_SHIPTONAME=".//*[@id='gridPipeline']//*[contains(text(),'$contract')]/..//*[contains(@id,'cell_ShipToName')]";
+	public String ELEMENT_PIPELINE_LIST_DATA_BY_COL_INDEX=".//*[@id='gridPipeline']//*[contains(text(),'$contract')]/..//td[$number]";
 	
 	//Display setting button
 	public By ELEMENT_PIPELINE_LIST_DISPLAYSETTING_BTN=By.xpath(".//*[@id='btnDisplaySetting']");
@@ -52,29 +55,58 @@ public class Pipeline extends PipelineBase{
 	
 	//************************************FILTER*************************************\
 	// filter column
-	public String ELEMENT_PIPELINE_LIST_BY_COLUMN_INDEX_FILTER=".//*[@id='gvPipeline_DXFREditorcol$number_I']";
+	public String ELEMENT_PIPELINE_LIST_BY_COLUMN_INDEX_FILTER=".//*[@data-text-field='$name']";
 	public String ELEMENT_PIPELINE_LIST_BY_DROPLIST=".//*[@id='gvPipeline_DXFREditorcol$number_DDD_L_D']";
 	public String ELEMENT_PIPELINE_LIST_DROPLIST_ITEM=".//*[contains(@id,'gvPipeline_DXFREditorcol$number')][contains(text(),'$item')]";
 	
 	public String ELEMENT_PIPELINE_ARROW_DROPDOWN=".//*[@id='gvPipeline_DXFREditorcol$number_B-1']";
 	public String ELEMETN_PIPELINE_CALENDAR_DAY=".//*[@id='gvPipeline_DXFREditorcol$number_DDD_C_mt']//*[text()='$day']";
 	
+	public By ELEMENT_PIPELINE_LIST_VALIDFORQ_DROPDOWN=By.xpath(".//*[@id='ddlValidForQuarter']");
+	public By ELEMENT_PIPELINE_LIST_FRESHPIPELINE_BTN=By.xpath(".//*[@id='btnRefresh']");
+	
+	
+	
 	public Pipeline(WebDriver dr) {
 		driver=dr;
+	}
+	/**
+	 * clear all filter
+	 */
+	public void clearFilter(){
+		info("Click on Clear Filter button");
+		click(ELEMENT_PIPELINE_LIST_CLEAR_FILTER_BTN);
+		Utils.pause(5000);
+	}
+	/**
+	 * Select valid for Q
+	 * @param value
+	 */
+	public void selectValidForQ(String value){
+	//	info("Click on Valid for Q dropdown");
+		//click(ELEMENT_PIPELINE_LIST_VALIDFORQ_DROPDOWN);
+		info("Select an option as:"+value);
+		select(ELEMENT_PIPELINE_LIST_VALIDFORQ_DROPDOWN,value,2);
+		Utils.pause(1000);
+		click(ELEMENT_PIPELINE_LIST_FRESHPIPELINE_BTN);
+		Utils.pause(5000);
 	}
 	/**
 	 * Search a contract by columns
 	 * @param numberCol
 	 * @param value
 	 */
-	public void search(int numberCol,String value){
+	public void search(String nameCol,String value){
+		clearFilter();
+		selectValidForQ("ALL");
+		WebElement el = waitForAndGetElement(ELEMENT_PIPELINE_LIST_BY_COLUMN_INDEX_FILTER
+				.replace("$name",nameCol),3000,1);
 		Actions act = new Actions(this.driver);
-		act.moveToElement(this.driver.findElement(By.xpath(ELEMENT_PIPELINE_LIST_BY_COLUMN_INDEX_FILTER
-				.replace("$number",String.valueOf(numberCol))))).perform();
+		act.moveToElement(el).perform();
 		info("Type "+value+" into the field");
 		type(ELEMENT_PIPELINE_LIST_BY_COLUMN_INDEX_FILTER
-				.replace("$number",String.valueOf(numberCol)),value,true);
-		//act.sendKeys(Keys.ENTER).perform();
+				.replace("$name",nameCol),value,true);
+		act.sendKeys(Keys.ENTER).perform();
 		info("Finished filtering");
 		Utils.pause(3000);
 	}
@@ -127,6 +159,15 @@ public class Pipeline extends PipelineBase{
 	public void verifyContractInList(String value){
 		info("Verify that the contract has the data: "+value+" is displayed in the list");
 		waitForAndGetElement(ELEMENT_PIPELINE_LIST_DATA.replace("$data",value),3000,1);
+	}
+	
+	/**
+	 * Verify that a contract is not in the list
+	 * @param value
+	 */
+	public void verifyContractNOTInList(String value){
+		info("Verify that the contract has the data: "+value+" is displayed in the list");
+		waitForElementNotPresent(ELEMENT_PIPELINE_LIST_DATA.replace("$data",value),3000,1);
 	}
 	/**
 	 * Get data of a contract from pipeline list
